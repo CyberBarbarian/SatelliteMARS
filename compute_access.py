@@ -50,7 +50,7 @@ def save_access_results(filename, results):
             writer.writerow(result)
 
 # 加载任务
-missions = load_missions('missions.csv')
+missions = load_missions('data/missions.csv')
 # 定义卫星和传感器的名称
 satellite_names = [f"Satellite{i+1}" for i in range(7)]
 sensor_names = [f"Sensor{i+1}" for i in range(7)]
@@ -70,4 +70,4 @@ for mission in missions:
     place.Unload()
 
 # 保存覆盖结果
-save_access_results('access.csv', batch_results)
+save_access_results('data/access.csv', batch_results)

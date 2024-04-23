@@ -22,4 +22,4 @@ def generate_missions(batch_size, num_batches, filename):
 
 
 # 设置参数并调用函数
-generate_missions(batch_size=100, num_batches=5, filename='missions.csv')
+generate_missions(batch_size=100, num_batches=5, filename='data/missions.csv')
