@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="16fe61c1-0247-43bc-b44e-55e07f7c8213" name="Changes" comment="调整目录">
+      <change afterPath="$PROJECT_DIR$/data/integrated_results.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR STK ScenarioWB.wsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR STK ScenarioWB.wsptb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.SQR.flight" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.SQR.guid" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.atmosphere.flight" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.atmosphere.guid" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.sc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.sc3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.scd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.wind.flight" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.wind.guid" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/RLSTARTimelinePrefs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/Satellite1.sa" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/Satellite1.sa3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/Satellite2.sa" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/Satellite2.sa3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/Satellite3.sa" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/Satellite3.sa3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/Satellite4.sa" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/Satellite4.sa3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/Satellite5.sa" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/Satellite5.sa3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/Satellite6.sa" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/Satellite6.sa3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/Satellite7.sa" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenario/Satellite7.sa3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/csv-editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handle_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/handle_csv.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;CyberBarbarian&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="87ea29da-c560-4615-9f9a-95258492fb17" />
+        <option name="url" value="https://github.com/CyberBarbarian/SatelliteMARS.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2f83GL9I7BPRHCQg8rHckLOcgOo" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Python.compute_access.executor": "Run",
+    "Python.craate_mission.executor": "Run",
+    "Python.create_mission.executor": "Run",
+    "Python.demo.executor": "Run",
+    "Python.handle_csv.executor": "Run",
+    "Python.mission.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\MRL_STK\data" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-09665e90c3a7-b11f5e8da5ad-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.15026.15" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="16fe61c1-0247-43bc-b44e-55e07f7c8213" name="Changes" comment="" />
+      <created>1713168780526</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1713168780526</updated>
+      <workItem from="1713168781611" duration="3460000" />
+      <workItem from="1713427124175" duration="486000" />
+      <workItem from="1713427618926" duration="664000" />
+      <workItem from="1713428292360" duration="3876000" />
+      <workItem from="1713750696932" duration="604000" />
+      <workItem from="1713772391581" duration="29000" />
+      <workItem from="1713772437870" duration="1028000" />
+      <workItem from="1713778943398" duration="6000" />
+      <workItem from="1713780044318" duration="629000" />
+      <workItem from="1713780857693" duration="133000" />
+      <workItem from="1713781101784" duration="556000" />
+      <workItem from="1713781694730" duration="768000" />
+      <workItem from="1713836122336" duration="1502000" />
+      <workItem from="1713837701301" duration="4758000" />
+      <workItem from="1713842484430" duration="1556000" />
+    </task>
+    <task id="LOCAL-00001" summary="创建任务、读取地点并计算访问">
+      <option name="closed" value="true" />
+      <created>1713842178425</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1713842178426</updated>
+    </task>
+    <task id="LOCAL-00002" summary="调整目录">
+      <option name="closed" value="true" />
+      <created>1713842646305</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1713842646305</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Delete .idea directory" />
+    <MESSAGE value="创建任务、读取地点并计算访问" />
+    <MESSAGE value="调整目录" />
+    <option name="LAST_COMMIT_MESSAGE" value="调整目录" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/MRL_STK$demo.coverage" NAME="demo 覆盖结果" MODIFIED="1713772459520" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MRL_STK$create_mission.coverage" NAME="create_mission 覆盖结果" MODIFIED="1713841145298" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MRL_STK$compute_access.coverage" NAME="compute_access 覆盖结果" MODIFIED="1713841150692" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MRL_STK$handle_csv.coverage" NAME="handle_csv 覆盖结果" MODIFIED="1713843355336" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MRL_STK$craate_mission.coverage" NAME="craate_mission Coverage Results" MODIFIED="1713424990365" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MRL_STK$mission.coverage" NAME="mission 覆盖结果" MODIFIED="1713836183191" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>
