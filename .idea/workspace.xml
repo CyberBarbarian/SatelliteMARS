@@ -4,40 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="16fe61c1-0247-43bc-b44e-55e07f7c8213" name="Changes" comment="调整目录">
-      <change afterPath="$PROJECT_DIR$/data/integrated_results.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR STK ScenarioWB.wsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR STK ScenarioWB.wsptb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.SQR.flight" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.SQR.guid" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.atmosphere.flight" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.atmosphere.guid" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.sc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.sc3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.scd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.wind.flight" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.wind.guid" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTARTimelinePrefs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite1.sa" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite1.sa3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite2.sa" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite2.sa3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite3.sa" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite3.sa3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite4.sa" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite4.sa3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite5.sa" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite5.sa3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite6.sa" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite6.sa3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite7.sa" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite7.sa3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/csv-editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handle_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/handle_csv.py" afterDir="false" />
+    <list default="true" id="16fe61c1-0247-43bc-b44e-55e07f7c8213" name="Changes" comment="完成handle_csv">
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +20,7 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -83,29 +52,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Python.compute_access.executor": "Run",
-    "Python.craate_mission.executor": "Run",
-    "Python.create_mission.executor": "Run",
-    "Python.demo.executor": "Run",
-    "Python.handle_csv.executor": "Run",
-    "Python.mission.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Python.compute_access.executor&quot;: &quot;Run&quot;,
+    &quot;Python.craate_mission.executor&quot;: &quot;Run&quot;,
+    &quot;Python.create_mission.executor&quot;: &quot;Run&quot;,
+    &quot;Python.demo.executor&quot;: &quot;Run&quot;,
+    &quot;Python.handle_csv.executor&quot;: &quot;Run&quot;,
+    &quot;Python.mission.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\MRL_STK\data" />
@@ -140,7 +109,7 @@
       <workItem from="1713781694730" duration="768000" />
       <workItem from="1713836122336" duration="1502000" />
       <workItem from="1713837701301" duration="4758000" />
-      <workItem from="1713842484430" duration="1556000" />
+      <workItem from="1713842484430" duration="1733000" />
     </task>
     <task id="LOCAL-00001" summary="创建任务、读取地点并计算访问">
       <option name="closed" value="true" />
@@ -158,7 +127,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713842646305</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="完成handle_csv">
+      <option name="closed" value="true" />
+      <created>1713844085099</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1713844085099</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,7 +146,8 @@
     <MESSAGE value="Delete .idea directory" />
     <MESSAGE value="创建任务、读取地点并计算访问" />
     <MESSAGE value="调整目录" />
-    <option name="LAST_COMMIT_MESSAGE" value="调整目录" />
+    <MESSAGE value="完成handle_csv" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成handle_csv" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/MRL_STK$demo.coverage" NAME="demo 覆盖结果" MODIFIED="1713772459520" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
