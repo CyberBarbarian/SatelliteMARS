@@ -1,5 +1,6 @@
 # generate_tasks.py
 import csv
+
 from mission import Mission
 
 

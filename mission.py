@@ -1,6 +1,7 @@
 # mission.py
 import random
 
+
 class Mission:
     def __init__(self):
         # 随机生成经纬度，这里假设经度范围(-180, 180)，纬度范围(-90, 90)

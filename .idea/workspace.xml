@@ -4,40 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="16fe61c1-0247-43bc-b44e-55e07f7c8213" name="Changes" comment="调整目录">
-      <change afterPath="$PROJECT_DIR$/data/integrated_results.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR STK ScenarioWB.wsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR STK ScenarioWB.wsptb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.SQR.flight" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.SQR.guid" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.atmosphere.flight" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.atmosphere.guid" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.sc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.sc3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.scd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.wind.flight" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTAR.wind.guid" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/RLSTARTimelinePrefs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite1.sa" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite1.sa3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite2.sa" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite2.sa3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite3.sa" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite3.sa3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite4.sa" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite4.sa3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite5.sa" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite5.sa3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite6.sa" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite6.sa3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite7.sa" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/Satellite7.sa3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="16fe61c1-0247-43bc-b44e-55e07f7c8213" name="Changes" comment="完成handle_csv，添加场景">
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/MRL_STK.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/csv-editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handle_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/handle_csv.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compute_access.py" beforeDir="false" afterPath="$PROJECT_DIR$/compute_access.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/create_mission.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_mission.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mission.py" beforeDir="false" afterPath="$PROJECT_DIR$/mission.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scenario/RLSTARTimelinePrefs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/scenario/RLSTARTimelinePrefs.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +29,7 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -97,6 +75,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
+    "last_opened_file_path": "D:/SatelliteMARS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -108,8 +87,168 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\PythonCode" />
       <recent name="D:\MRL_STK\data" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="DjangoTestsConfigurationType">
+      <module name="SatelliteMARS" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="TARGET" value="" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
+      <module name="SatelliteMARS" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="ADDITIONAL_ARGS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="SatelliteMARS" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Python.FlaskServer">
+      <module name="SatelliteMARS" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <module name="SatelliteMARS" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docs" factoryName="Docutils task">
+      <module name="SatelliteMARS" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="docutils_input_file" value="" />
+      <option name="docutils_output_file" value="" />
+      <option name="docutils_params" value="" />
+      <option name="docutils_task" value="" />
+      <option name="docutils_open_in_browser" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docs" factoryName="Sphinx task">
+      <module name="SatelliteMARS" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="docutils_input_file" value="" />
+      <option name="docutils_output_file" value="" />
+      <option name="docutils_params" value="" />
+      <option name="docutils_task" value="" />
+      <option name="docutils_open_in_browser" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Autodetect">
+      <module name="SatelliteMARS" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <module name="SatelliteMARS" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -140,7 +279,9 @@
       <workItem from="1713781694730" duration="768000" />
       <workItem from="1713836122336" duration="1502000" />
       <workItem from="1713837701301" duration="4758000" />
-      <workItem from="1713842484430" duration="1556000" />
+      <workItem from="1713842484430" duration="2052000" />
+      <workItem from="1713845016756" duration="8000" />
+      <workItem from="1713845153107" duration="135000" />
     </task>
     <task id="LOCAL-00001" summary="创建任务、读取地点并计算访问">
       <option name="closed" value="true" />
@@ -158,7 +299,23 @@
       <option name="project" value="LOCAL" />
       <updated>1713842646305</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="完成handle_csv">
+      <option name="closed" value="true" />
+      <created>1713844085099</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1713844085099</updated>
+    </task>
+    <task id="LOCAL-00004" summary="完成handle_csv，添加场景">
+      <option name="closed" value="true" />
+      <created>1713844231560</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1713844231560</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,7 +326,9 @@
     <MESSAGE value="Delete .idea directory" />
     <MESSAGE value="创建任务、读取地点并计算访问" />
     <MESSAGE value="调整目录" />
-    <option name="LAST_COMMIT_MESSAGE" value="调整目录" />
+    <MESSAGE value="完成handle_csv" />
+    <MESSAGE value="完成handle_csv，添加场景" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成handle_csv，添加场景" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/MRL_STK$demo.coverage" NAME="demo 覆盖结果" MODIFIED="1713772459520" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

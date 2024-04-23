@@ -1,10 +1,12 @@
-import win32com.client
 import csv
+
+import win32com.client
 
 # 连接到正在运行的STK实例
 uiApplication = win32com.client.GetActiveObject('STK11.Application')
-uiApplication.Visible =1
+uiApplication.Visible = 1
 root = uiApplication.Personality2
+
 
 # 从CSV文件中加载任务
 def load_missions(filename):
@@ -12,6 +14,7 @@ def load_missions(filename):
         reader = csv.DictReader(file)
         missions = list(reader)
     return missions
+
 
 # 在STK中创建地面点
 def create_place(name, latitude, longitude):
@@ -21,6 +24,7 @@ def create_place(name, latitude, longitude):
     place.HeightAboveGround = 0.05  # in km
     return place
 
+
 # 计算卫星对地面点的覆盖情况
 def compute_access_for_place(place, satellite_names, sensor_names):
     access_results = []
@@ -28,7 +32,7 @@ def compute_access_for_place(place, satellite_names, sensor_names):
         satellite = root.GetObjectFromPath(f"Satellite/{satellite_name}")
         sensor = satellite.Children.Item(sensor_name)
         # access = sensor.GetAccessToObject(place)
-        access=satellite.GetAccessToObject(place)
+        access = satellite.GetAccessToObject(place)
         access.ComputeAccess()
         intervalCollection = access.ComputedAccessIntervalTimes
         try:
@@ -41,6 +45,7 @@ def compute_access_for_place(place, satellite_names, sensor_names):
             print(f"Failed to retrieve intervals for {sensor_name} and {place.InstanceName}: {str(e)}")
     return access_results
 
+
 # 将覆盖结果保存到CSV文件中
 def save_access_results(filename, results):
     with open(filename, 'w', newline='') as file:
@@ -49,11 +54,12 @@ def save_access_results(filename, results):
         for result in results:
             writer.writerow(result)
 
+
 # 加载任务
 missions = load_missions('data/missions.csv')
 # 定义卫星和传感器的名称
-satellite_names = [f"Satellite{i+1}" for i in range(7)]
-sensor_names = [f"Sensor{i+1}" for i in range(7)]
+satellite_names = [f"Satellite{i + 1}" for i in range(7)]
+sensor_names = [f"Sensor{i + 1}" for i in range(7)]
 
 batch_results = []
 
