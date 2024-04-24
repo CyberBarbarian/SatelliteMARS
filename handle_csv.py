@@ -11,10 +11,19 @@ def parse_time(time_str):
     return datetime.strptime(time_str, '%d %b %Y %H:%M:%S.%f')
 
 
-def check_within_interval(arrival_time, intervals):
+def parse_intervals(intervals):
+    parsed_intervals = []
     for start, end in intervals:
-        print(parse_time(start), parse_time(end), arrival_time)
-        if parse_time(start) <= arrival_time <= parse_time(end):
+        parsed_start = parse_time(start)
+        parsed_end = parse_time(end)
+        parsed_intervals.append((parsed_start, parsed_end))
+    return parsed_intervals
+
+def check_within_interval(arrival_time, parsed_intervals):
+    for start, end in parsed_intervals:
+        parsed_start = parse_time(start)
+        parsed_end = parse_time(end)
+        if parsed_start <= arrival_time <= parsed_end:
             return True
     return False
 
