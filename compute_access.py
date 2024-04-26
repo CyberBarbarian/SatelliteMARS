@@ -26,23 +26,21 @@ def create_place(name, latitude, longitude):
 
 
 # 计算卫星对地面点的覆盖情况
-def compute_access_for_place(place, satellite_names, sensor_names):
+def compute_access_for_place(place, satellite_names):
     access_results = []
-    for satellite_name, sensor_name in zip(satellite_names, sensor_names):
+    for satellite_name in satellite_names:
         satellite = root.GetObjectFromPath(f"Satellite/{satellite_name}")
-        sensor = satellite.Children.Item(sensor_name)
-        # access = sensor.GetAccessToObject(place)
         access = satellite.GetAccessToObject(place)
         access.ComputeAccess()
         intervalCollection = access.ComputedAccessIntervalTimes
         try:
             if intervalCollection.Count > 0:
                 intervals = intervalCollection.ToArray(0, -1)
-                access_results.append((satellite_name, sensor_name, intervals))
+                access_results.append((satellite_name, intervals))
             else:
                 pass
         except Exception as e:
-            print(f"Failed to retrieve intervals for {sensor_name} and {place.InstanceName}: {str(e)}")
+            print(f"Failed to retrieve intervals for {satellite_names} and {place.InstanceName}: {str(e)}")
     return access_results
 
 
@@ -50,28 +48,26 @@ def compute_access_for_place(place, satellite_names, sensor_names):
 def save_access_results(filename, results):
     with open(filename, 'w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(['batch_id', 'task_id', 'latitude', 'longitude', 'satellite', 'sensor', 'intervals'])
+        writer.writerow(['batch_id', 'task_id', 'latitude', 'longitude', 'satellite', 'intervals'])
         for result in results:
             writer.writerow(result)
 
 
 # 加载任务
 missions = load_missions('data/missions.csv')
-# 定义卫星和传感器的名称
+# 定义卫星的名称
 satellite_names = [f"Satellite{i + 1}" for i in range(7)]
-sensor_names = [f"Sensor{i + 1}" for i in range(7)]
-
 batch_results = []
 
 # 对每个任务进行覆盖计算
 for mission in missions:
     place_name = f"Place_{mission['batch_id']}_{mission['task_id']}"
     place = create_place(place_name, float(mission['latitude']), float(mission['longitude']))
-    access_results = compute_access_for_place(place, satellite_names, sensor_names)
-    for satellite_name, sensor_name, intervals in access_results:
+    access_results = compute_access_for_place(place, satellite_names)
+    for satellite_name, intervals in access_results:
         batch_results.append([
             mission['batch_id'], mission['task_id'], mission['latitude'], mission['longitude'],
-            satellite_name, sensor_name, intervals
+            satellite_name, intervals
         ])
     place.Unload()
 
