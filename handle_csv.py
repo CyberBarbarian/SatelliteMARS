@@ -19,12 +19,11 @@ def parse_intervals(intervals):
         parsed_intervals.append((parsed_start, parsed_end))
     return parsed_intervals
 
-
-def check_within_interval(arrival_time,end_time, parsed_intervals):
+def check_within_interval(arrival_time, parsed_intervals):
     for start, end in parsed_intervals:
         parsed_start = parse_time(start)
         parsed_end = parse_time(end)
-        if (parsed_start <= arrival_time <= parsed_end) & (parsed_start <= end_time <= parsed_end):
+        if parsed_start <= arrival_time <= parsed_end:
             return True
     return False
 
@@ -37,8 +36,8 @@ def integrate_csv(missions_file, access_file, output_file):
 
     with open(output_file, 'w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(['batch_id', 'task_id', 'arrival_time_seconds', 'observable_by_satellite', 'reward',
-                         'observation_duration', "memory_usage"])
+        writer.writerow(['batch_id', 'task_id', 'arrival_time_seconds', 'observable_by_satellite', 'reward'])
+
         for access in accesses:
             mission = next(
                 (m for m in missions if m['batch_id'] == access['batch_id'] and m['task_id'] == access['task_id']),
@@ -46,13 +45,11 @@ def integrate_csv(missions_file, access_file, output_file):
             if mission:
                 arrival_time_seconds = int(mission['arrival_time'])
                 actual_arrival_time = base_time + timedelta(seconds=arrival_time_seconds)
-                end_time = actual_arrival_time + timedelta(seconds=int(mission['observation_duration']))
                 intervals = eval(access['intervals'])
 
-                if check_within_interval(actual_arrival_time,end_time ,intervals):
+                if check_within_interval(actual_arrival_time, intervals):
                     writer.writerow([access['batch_id'], access['task_id'], arrival_time_seconds,
-                                     access['satellite'], mission['profit'], mission['observation_duration'],
-                                     mission['memory_usage']])
+                                     f"{access['satellite']} observed by {access['sensor']}", mission['profit']])
 
 
 # 设置文件路径并调用函数
