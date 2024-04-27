@@ -4,7 +4,7 @@ import win32com.client
 
 # 连接到正在运行的STK实例
 uiApplication = win32com.client.GetActiveObject('STK11.Application')
-uiApplication.Visible = 1
+uiApplication.Visible = 0
 root = uiApplication.Personality2
 
 
@@ -12,45 +12,43 @@ root = uiApplication.Personality2
 def load_missions(filename):
     with open(filename, newline='') as file:
         reader = csv.DictReader(file)
-        missions = list(reader)
-    return missions
+        _missions = list(reader)
+    return _missions
 
 
 # 在STK中创建地面点
 def create_place(name, latitude, longitude):
-    place = root.CurrentScenario.Children.New(32, name)  # ePlace
-    place.Position.AssignGeodetic(latitude, longitude, 0)
-    place.UseTerrain = True
-    place.HeightAboveGround = 0.05  # in km
-    return place
+    _place = root.CurrentScenario.Children.New(32, name)  # ePlace
+    _place.Position.AssignGeodetic(latitude, longitude, 0)
+    _place.UseTerrain = True
+    _place.HeightAboveGround = 0.05  # in km
+    return _place
 
 
 # 计算卫星对地面点的覆盖情况
-def compute_access_for_place(place, satellite_names, sensor_names):
-    access_results = []
-    for satellite_name, sensor_name in zip(satellite_names, sensor_names):
-        satellite = root.GetObjectFromPath(f"Satellite/{satellite_name}")
-        sensor = satellite.Children.Item(sensor_name)
-        # access = sensor.GetAccessToObject(place)
-        access = satellite.GetAccessToObject(place)
+def compute_access_for_place(_place, _satellite_names):
+    _access_results = []
+    for _satellite_name in _satellite_names:
+        satellite = root.GetObjectFromPath(f"Satellite/{_satellite_name}")
+        access = satellite.GetAccessToObject(_place)
         access.ComputeAccess()
-        intervalCollection = access.ComputedAccessIntervalTimes
+        interval_collection = access.ComputedAccessIntervalTimes
         try:
-            if intervalCollection.Count > 0:
-                intervals = intervalCollection.ToArray(0, -1)
-                access_results.append((satellite_name, sensor_name, intervals))
+            if interval_collection.Count > 0:
+                _intervals = interval_collection.ToArray(0, -1)
+                _access_results.append((_satellite_name, _intervals))
             else:
                 pass
         except Exception as e:
-            print(f"Failed to retrieve intervals for {sensor_name} and {place.InstanceName}: {str(e)}")
-    return access_results
+            print(f"Failed to retrieve intervals for {_satellite_name} and {_place.InstanceName}: {str(e)}")
+    return _access_results
 
 
 # 将覆盖结果保存到CSV文件中
 def save_access_results(filename, results):
     with open(filename, 'w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(['batch_id', 'task_id', 'latitude', 'longitude', 'satellite', 'sensor', 'intervals'])
+        writer.writerow(['batch_id', 'task_id', 'latitude', 'longitude', 'satellite', 'intervals'])
         for result in results:
             writer.writerow(result)
 
@@ -59,7 +57,6 @@ def save_access_results(filename, results):
 missions = load_missions('data/missions.csv')
 # 定义卫星和传感器的名称
 satellite_names = [f"Satellite{i + 1}" for i in range(7)]
-sensor_names = [f"Sensor{i + 1}" for i in range(7)]
 
 batch_results = []
 
@@ -67,11 +64,11 @@ batch_results = []
 for mission in missions:
     place_name = f"Place_{mission['batch_id']}_{mission['task_id']}"
     place = create_place(place_name, float(mission['latitude']), float(mission['longitude']))
-    access_results = compute_access_for_place(place, satellite_names, sensor_names)
-    for satellite_name, sensor_name, intervals in access_results:
+    access_results = compute_access_for_place(place, satellite_names)
+    for satellite_name, intervals in access_results:
         batch_results.append([
             mission['batch_id'], mission['task_id'], mission['latitude'], mission['longitude'],
-            satellite_name, sensor_name, intervals
+            satellite_name, intervals
         ])
     place.Unload()
 

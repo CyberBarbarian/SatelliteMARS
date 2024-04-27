@@ -17,3 +17,7 @@
 
 读取`data/missions.csv`和`data/access.csv`
 ，进行对齐处理，计算当任务出现时，哪些卫星可以观测到，并将对应结果存储在`data/MRL_data.csv`中；
+
+## sort.py
+
+读取`data/MRL_data.csv`，对统一批次中的数据按照到达时间进行排序，将结果存储在`data/MRL_data_sorted.csv`中；
