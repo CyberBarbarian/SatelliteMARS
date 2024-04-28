@@ -21,3 +21,11 @@
 ## sort.py
 
 读取`data/MRL_data.csv`，对统一批次中的数据按照到达时间进行排序，将结果存储在`data/MRL_data_sorted.csv`中；
+
+## generate_data.py
+
+整合了`create_mission.py` `compute_access.py`、`handle_csv.py`、`sort.py`，可以一键生成数据；
+
+## augument_data.py
+
+读取指定原始数据，对数据进行增强处理，可以指定从原始数据中抽取的数量和生成的批次；

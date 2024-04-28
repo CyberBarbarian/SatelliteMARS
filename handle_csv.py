@@ -76,4 +76,4 @@ def integrate_csv(missions_file, access_file, output_file):
 
 
 if __name__ == '__main__':
-    integrate_csv('data/missions.csv', 'data/access.csv', 'data/MRL_data.csv')
+    integrate_csv('data/hot_missions_4000_1.csv', 'data/hot_access_4000_1.csv', 'data/hot_MRL_data_4000_1.csv')

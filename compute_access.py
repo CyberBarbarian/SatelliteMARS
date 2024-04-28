@@ -9,6 +9,7 @@ def load_missions(filename):
         reader = csv.DictReader(file)
         return list(reader)
 
+
 def create_places(missions, visible=1):
     uiApplication = win32com.client.GetActiveObject('STK11.Application')
     uiApplication.Visible = visible
@@ -22,6 +23,7 @@ def create_places(missions, visible=1):
         place.HeightAboveGround = 0.05  # in km
         places.append(place)
     return places
+
 
 def compute_access_for_places(places, satellite_names, visible=1):
     uiApplication = win32com.client.GetActiveObject('STK11.Application')
@@ -39,6 +41,7 @@ def compute_access_for_places(places, satellite_names, visible=1):
                 results.append((place.InstanceName, satellite_name, intervals))
     return results
 
+
 def save_access_results(filename, results):
     with open(filename, 'w', newline='') as file:
         writer = csv.writer(file)
@@ -46,24 +49,28 @@ def save_access_results(filename, results):
         for result in results:
             place_name, satellite_name, intervals = result
             batch_id, task_id = place_name.split('_')[1], place_name.split('_')[2]
-            writer.writerow([batch_id, task_id, '', '', satellite_name, intervals])  # Assume latitude and longitude are fetched elsewhere
+            writer.writerow(
+                [batch_id, task_id, satellite_name, intervals])  # Assume latitude and longitude are fetched elsewhere
+
 
 def unload_places(places):
     for place in places:
         place.Unload()
+
 
 def compute_access(_missions_filename='data/missions.csv', _access_filename='data/access.csv', visible=1):
     missions = load_missions(_missions_filename)
     satellite_names = [f"Satellite{i + 1}" for i in range(7)]
     batch_results = []
     for i in tqdm(range(0, len(missions), 50), desc="Computing access in batches", unit="batch"):
-        batch_missions = missions[i:i+50]
+        batch_missions = missions[i:i + 50]
         places = create_places(batch_missions, visible)
         access_results = compute_access_for_places(places, satellite_names, visible)
         batch_results.extend(access_results)
         unload_places(places)
     save_access_results(_access_filename, batch_results)
     print(f"Access finished! Results saved to {_access_filename}")
+
 
 if __name__ == '__main__':
     compute_access(visible=1)
