@@ -19,31 +19,34 @@ def parse_time(time_str):
     return datetime.strptime(time_str, '%d %b %Y %H:%M:%S.%f')
 
 
-def sort_tasks(_tasks):
-    # Group tasks by batch_id
+def sort_missions(_missions):
+    # Group missions by batch_id
     batches = {}
-    for task in _tasks:
+    for task in _missions:
         batch_id = task['batch_id']
         if batch_id not in batches:
             batches[batch_id] = []
         batches[batch_id].append(task)
 
-    # Sort tasks within each batch by arrival time
-    _sorted_tasks = []
+    # Sort missions within each batch by arrival time
+    _sorted_missions = []
     for batch_id in batches:
         batches[batch_id].sort(key=lambda x: int(x['arrival_time_seconds']))
-        _sorted_tasks.extend(batches[batch_id])
+        _sorted_missions.extend(batches[batch_id])
 
-    return _sorted_tasks
+    return _sorted_missions
 
 
-# Load data from the integrated results CSV
-tasks = read_csv('data/MRL_data.csv')
+def sort_csv(input_file='data/MRL_data.csv', output_file='data/MRL_data_sorted.csv'):
+    # Load data from the integrated results CSV
+    missions = read_csv(input_file)
 
-# Sort the tasks by arrival time within each batch
-sorted_tasks = sort_tasks(tasks)
+    # Sort the missions by arrival time within each batch
+    sorted_missions = sort_missions(missions)
 
-# Write the sorted tasks back to a new CSV
-write_csv('data/MRL_data_sorted.csv', sorted_tasks)
+    # Write the sorted missions back to a new CSV
+    write_csv(output_file, sorted_missions)
 
-print("Tasks have been sorted and written to 'data/MRL_data_sorted.csv'")
+    print(f"Mission have been sorted and written to {output_file}")
+
+

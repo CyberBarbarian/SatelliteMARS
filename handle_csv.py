@@ -72,7 +72,8 @@ def integrate_csv(missions_file, access_file, output_file):
                 data['observation_duration'], data['memory_usage'],
                 data['latitude'], data['longitude']
             ])
+    print(f"Data integrated and saved to {output_file}")
 
 
-# Setting file paths and calling the function
-integrate_csv('data/missions.csv', 'data/access.csv', 'data/MRL_data.csv')
+if __name__ == '__main__':
+    integrate_csv('data/missions.csv', 'data/access.csv', 'data/MRL_data.csv')

@@ -4,7 +4,7 @@ import csv
 from mission import Mission
 
 
-def generate_missions(batch_size, num_batches, filename):
+def generate_missions(batch_size, num_batches, filename='data/missions.csv'):
     # 创建 CSV 文件并写入任务数据
     with open(filename, 'w', newline='') as file:
         writer = csv.writer(file)
@@ -20,7 +20,9 @@ def generate_missions(batch_size, num_batches, filename):
                 writer.writerow([batch_id, task_id, mission.latitude, mission.longitude,
                                  mission.arrival_time, mission.observation_duration,
                                  mission.profit, mission.memory_usage])
+    print(f"Missions have been generated and saved to {filename}")
 
 
-# 设置参数并调用函数
-generate_missions(batch_size=30, num_batches=2, filename='data/missions.csv')
+if __name__ == '__main__':
+    # 设置参数并调用函数
+    generate_missions(batch_size=30, num_batches=2, filename='data/missions.csv')

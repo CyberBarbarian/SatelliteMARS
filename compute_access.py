@@ -2,11 +2,6 @@ import csv
 
 import win32com.client
 
-# 连接到正在运行的STK实例
-uiApplication = win32com.client.GetActiveObject('STK11.Application')
-uiApplication.Visible = 0
-root = uiApplication.Personality2
-
 
 # 从CSV文件中加载任务
 def load_missions(filename):
@@ -53,24 +48,33 @@ def save_access_results(filename, results):
             writer.writerow(result)
 
 
-# 加载任务
-missions = load_missions('data/missions.csv')
-# 定义卫星和传感器的名称
-satellite_names = [f"Satellite{i + 1}" for i in range(7)]
+def compute_access(_missions_filename='data/missions.csv', _access_filename='data/access.csv'):
+    # 加载任务
+    missions = load_missions(_missions_filename)
+    # 定义卫星和传感器的名称
+    satellite_names = [f"Satellite{i + 1}" for i in range(7)]
 
-batch_results = []
+    batch_results = []
 
-# 对每个任务进行覆盖计算
-for mission in missions:
-    place_name = f"Place_{mission['batch_id']}_{mission['task_id']}"
-    place = create_place(place_name, float(mission['latitude']), float(mission['longitude']))
-    access_results = compute_access_for_place(place, satellite_names)
-    for satellite_name, intervals in access_results:
-        batch_results.append([
-            mission['batch_id'], mission['task_id'], mission['latitude'], mission['longitude'],
-            satellite_name, intervals
-        ])
-    place.Unload()
+    # 对每个任务进行覆盖计算
+    for mission in missions:
+        place_name = f"Place_{mission['batch_id']}_{mission['task_id']}"
+        place = create_place(place_name, float(mission['latitude']), float(mission['longitude']))
+        access_results = compute_access_for_place(place, satellite_names)
+        for satellite_name, intervals in access_results:
+            batch_results.append([
+                mission['batch_id'], mission['task_id'], mission['latitude'], mission['longitude'],
+                satellite_name, intervals
+            ])
+        place.Unload()
 
-# 保存覆盖结果
-save_access_results('data/access.csv', batch_results)
+    # 保存覆盖结果
+    save_access_results(_access_filename, batch_results)
+    print(f"Access finished! Results saved to {_access_filename}")
+
+if __name__== '__main__':
+    # 连接到正在运行的STK实例
+    uiApplication = win32com.client.GetActiveObject('STK11.Application')
+    uiApplication.Visible = 0
+    root = uiApplication.Personality2
+    compute_access()
