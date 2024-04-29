@@ -15,10 +15,10 @@ def generate_data(batch_size, batch_num, visible=1, prefix=None):
     :return:
     '''
     if prefix is not None:
-        mission_file = f'data/{prefix}_missions_{batch_size}_{batch_num}.csv'
-        access_file = f'data/{prefix}_access_{batch_size}_{batch_num}.csv'
-        MRL_file = f'data/{prefix}_MRL_data_{batch_size}_{batch_num}.csv'
-        MRL_file_sorted = f'data/{prefix}_MRL_data_sorted_{batch_size}_{batch_num}.csv'
+        mission_file = f'data/{prefix}missions_{batch_size}_{batch_num}.csv'
+        access_file = f'data/{prefix}access_{batch_size}_{batch_num}.csv'
+        MRL_file = f'data/{prefix}MRL_data_{batch_size}_{batch_num}.csv'
+        MRL_file_sorted = f'data/{prefix}MRL_data_sorted_{batch_size}_{batch_num}.csv'
 
     else:
         mission_file = f'data/missions_{batch_size}_{batch_num}.csv'
@@ -37,4 +37,7 @@ def generate_data(batch_size, batch_num, visible=1, prefix=None):
 
 
 if __name__ == '__main__':
-    generate_data(40, 1, visible=0, prefix='hot')
+    # for i in range(1, 20):
+    #     generate_data(100, 100, visible=1, prefix=f'True/{i}')
+    generate_data(100, 1, visible=1, prefix=f'augment/')
+

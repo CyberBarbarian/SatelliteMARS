@@ -51,4 +51,5 @@ def sort_csv(input_file='data/MRL_data.csv', output_file='data/MRL_data_sorted.c
 
 
 if __name__ == "__main__":
-    sort_csv(input_file='data/hot_MRL_data_4000_1.csv', output_file='data/hot_MRL_data_sorted_4000_1.csv')
+    # sort_csv(input_file='data/hot_MRL_data_4000_1.csv', output_file='data/hot_MRL_data_sorted_4000_1.csv')
+    sort_csv()

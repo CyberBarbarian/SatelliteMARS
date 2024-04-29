@@ -29,11 +29,12 @@ def check_within_interval(arrival_time, end_time, parsed_intervals):
     return False
 
 
-def integrate_csv(missions_file, access_file, output_file):
+def integrate_csv(missions_file="data/missions.csv", access_file="data/access.csv", output_file="data/MRL_data.csv"):
+
     missions = read_csv(missions_file)
     accesses = read_csv(access_file)
 
-    base_time = datetime.strptime("18 Aug 2018 04:00:00.000", "%d %b %Y %H:%M:%S.%f")
+    base_time = datetime.strptime("18 Aug 2018 03:45:00.000", "%d %b %Y %H:%M:%S.%f")
     task_data = {}
 
     for access in accesses:
@@ -76,4 +77,5 @@ def integrate_csv(missions_file, access_file, output_file):
 
 
 if __name__ == '__main__':
-    integrate_csv('data/hot_missions_4000_1.csv', 'data/hot_access_4000_1.csv', 'data/hot_MRL_data_4000_1.csv')
+    # integrate_csv('data/hot_missions_4000_1.csv', 'data/hot_access_4000_1.csv', 'data/hot_MRL_data_4000_1.csv')
+    integrate_csv()

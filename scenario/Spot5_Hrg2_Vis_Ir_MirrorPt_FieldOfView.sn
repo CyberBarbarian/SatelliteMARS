@@ -1,0 +1,99 @@
+STK.V.9.0
+WrittenBy    StandardObjectCatalog
+BEGIN Sensor
+	Name		Spot5_Hrg2_Vis_Ir_MirrorPt_FieldOfView
+BEGIN Pattern
+	BEGIN Rectangular
+		UpDownAngle                  4.2
+		SideToSideAngle              4
+		AngularPatternResolution     3
+	END Rectangular
+END Pattern
+BEGIN Pointing
+	Begin Fixed
+	PointingMethod          AzEl
+	Sequence                213
+	Qx                      0.0174524064372833
+	Qy                      -5.2065494968445E-18
+	Qz                      9.08806595193983E-20
+	Qs                      0.999847695156391
+	END Fixed
+END Pointing
+BEGIN Extensions
+	BEGIN Graphics
+		BEGIN Attributes
+			Inherit             Yes
+			Show                Yes
+			LineStyle           0
+			LineWidth            1.0
+			PatternColor        #00ffff
+		END Attributes
+	END Graphics
+	BEGIN Desc
+		ShortText    5
+HRG-2
+		LongText     1738
+Name 		: HRG-2
+Role 		: OpticalImager
+Health 		: Unknown
+Operations 	: High Resolution Geometric (HRG) system is comprised of two identical  instruments.  HRG-1 and HRG-2 are capable of 5-meter panchromatic VNIR, 10-meter multispectral VNIR, and 20-meter SWIR ground resolution.
+Manufacturer 	: Astrium SAS
+
+Optical Operation # 1 
+SPECTRUM CHARACTERISTICS:
+# of spectrum bands: 1
+Upper Spectrum Type      	: Visible
+Lower Spectrum Type      	: Visible
+Spectrum Band      	: 
+    Lower Wavelength 	 : 490 [Nanometers]
+    Upper Wavelength 	 : 690 [Nanometers]
+
+  RESOLUTIONS:
+      Resolution 5 [Meters]
+
+
+Optical Operation # 2 
+SPECTRUM CHARACTERISTICS:
+# of spectrum bands: 3
+Upper Spectrum Type      	: Infrared
+Lower Spectrum Type      	: Visible
+Spectrum Band      	: 
+    Lower Wavelength 	 : 490 [Nanometers]
+    Upper Wavelength 	 : 610 [Nanometers]
+Spectrum Band      	: 
+    Lower Wavelength 	 : 610 [Nanometers]
+    Upper Wavelength 	 : 680 [Nanometers]
+Spectrum Band      	: 
+    Lower Wavelength 	 : 780 [Nanometers]
+    Upper Wavelength 	 : 890 [Nanometers]
+
+  RESOLUTIONS:
+      Resolution 10 [Meters]
+
+
+Optical Operation # 3 
+SPECTRUM CHARACTERISTICS:
+# of spectrum bands: 1
+Upper Spectrum Type      	: Infrared
+Lower Spectrum Type      	: Infrared
+Spectrum Band      	: 
+    Lower Wavelength 	 : 1580 [Nanometers]
+    Upper Wavelength 	 : 1750 [Nanometers]
+
+  RESOLUTIONS:
+      Resolution 20 [Meters]
+
+Field of View Properties 
+Short Name  	: Spot5_Hrg2_Vis_Ir_MirrorPt_FieldOfView
+Pattern type	: Rectangular
+Dimensions:
+   Horizontal Half Angle	: 2 [Degrees] 
+   Vertical Half Angle 	: 2.1 [Degrees] 
+Pointing:
+   Pointing Azimuth 	: -90 [Degrees]
+   Pointing Elevation : 88 [Degrees]
+
+
+	END Desc
+END Extensions
+END Sensor

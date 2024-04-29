@@ -10,8 +10,8 @@ BEGIN Satellite
 
         BEGIN Interval
 
-            StartTime		 18 Aug 2018 04:00:00.000000000
-            StopTime		 18 Aug 2018 04:59:59.000000000
+            StartTime		 18 Aug 2018 03:45:00.000000000
+            StopTime		 18 Aug 2018 04:44:59.000000000
 
         END Interval
 
@@ -36,8 +36,8 @@ BEGIN Satellite
                 IntervalState		 Implicit
             END EVENTINTERVAL
 
-            StartTime		 18 Aug 2018 04:00:00.000
-            StopTime		 18 Aug 2018 04:59:59.000
+            StartTime		 18 Aug 2018 03:45:00.000
+            StopTime		 18 Aug 2018 04:44:59.000
             TimeStep		 60
             Use1PtInterpolation		 Yes
             Use1PtValidation		 No
@@ -131,7 +131,7 @@ BEGIN Satellite
             RangeFirstPass		 1
             RangeLastPass		 2147483647
             DisplayScheme		 AllEphemeris
-            ScenarioEpoch		 18 Aug 2018 04:00:00.000000
+            ScenarioEpoch		 18 Aug 2018 03:45:00.000000
         END PassDefn
 
     END VehiclePath
@@ -150,7 +150,7 @@ BEGIN Satellite
 
     BEGIN Attitude
 
-        ScenarioEpoch		 18 Aug 2018 04:00:00.000000
+        ScenarioEpoch		 18 Aug 2018 03:45:00.000000
 
         BEGIN Profile
             Name		 ECIVVLH
@@ -259,7 +259,7 @@ BEGIN Satellite
             LaunchWindowTrajMETStart		 0
             LaunchWindowTrajMETStop		 900
             LaunchWindowStart		 -14400
-            LaunchWindowStop		 -21599
+            LaunchWindowStop		 -17999
             LaunchMETOffset		 0
             LaunchWindowUseSecEphem		 No 
             LaunchWindowUseScenFolderForSecEphem		 Yes

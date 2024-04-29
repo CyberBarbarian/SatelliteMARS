@@ -1,0 +1,50 @@
+STK.V.9.0
+WrittenBy    StandardObjectCatalog
+BEGIN Satellite
+	Name		Spot6_38755
+BEGIN VehiclePath
+	CentralBody				Earth
+	BEGIN SGP4
+		VersionIndicator    20080918
+		SSCNumber           38755
+		TimeStep            60.0
+		IntlDesignator      2012-047A
+		CommonName          SPOT 6
+	END SGP4
+END VehiclePath
+BEGIN Attitude
+	BEGIN Profile
+		BEGIN ECFVVLH
+		END ECFVVLH
+	END Profile
+END Attitude
+BEGIN Extensions
+	BEGIN Desc
+		ShortText 6
+SPOT 6
+		LongText 387
+SPOT 6
+CatalogNumber: 38755
+InternationalID: 2012-047A
+Civilian satellite
+Status             	: Active
+MISSION: 
+  Mission Class: EarthObservation
+   Mission Types: GroundImaging
+
+
+ORBIT INFORMATION:
+
+Launch Date   	: 2012-09-09
+Launch notes  	: 
+
+https://sdf10.agi.com/content/files/STK Standard Objects/Spacecraft/SPOT/AGI.Data.StandardObjectCatalog.Stk.StkObjectData.sa
+	END Desc
+END Extensions
+BEGIN SubObjects
+Class Sensor
+	Spot6_Naomi_Vis_Ir_BodyPt_FieldOfView
+	Spot6_Naomi_FieldOfRegard
+END Class
+END SubObjects
+END Satellite

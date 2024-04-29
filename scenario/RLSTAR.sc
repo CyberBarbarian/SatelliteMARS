@@ -5,10 +5,10 @@ BEGIN Scenario
 
     BEGIN Epoch
 
-        Epoch		 18 Aug 2018 04:00:00.000000000
+        Epoch		 18 Aug 2018 03:45:00.000000000
         SmartEpoch		
         BEGIN EVENT
-            Epoch		 18 Aug 2018 04:00:00.000000000
+            Epoch		 18 Aug 2018 03:45:00.000000000
             EventEpoch		
             BEGIN EVENT
                 Type		 EVENT_LINKTO
@@ -22,13 +22,13 @@ BEGIN Scenario
 
     BEGIN Interval
 
-        Start		 18 Aug 2018 04:00:00.000000000
-        Stop		 18 Aug 2018 04:59:59.000000000
+        Start		 18 Aug 2018 03:45:00.000000000
+        Stop		 18 Aug 2018 04:44:59.000000000
         SmartInterval		
         BEGIN EVENTINTERVAL
             BEGIN Interval
-                Start		 18 Aug 2018 04:00:00.000000000
-                Stop		 18 Aug 2018 04:59:59.000000000
+                Start		 18 Aug 2018 03:45:00.000000000
+                Stop		 18 Aug 2018 04:44:59.000000000
             END Interval
             IntervalState		 Explicit
         END EVENTINTERVAL
@@ -144,7 +144,7 @@ BEGIN Scenario
             LaunchWindowTrajMETStart		 0
             LaunchWindowTrajMETStop		 900
             LaunchWindowStart		 1.7833e+08
-            LaunchWindowStop		 1.78409e+08
+            LaunchWindowStop		 1.78412e+08
             LaunchMETOffset		 0
             LaunchWindowUseSecEphem		 No 
             LaunchWindowUseScenFolderForSecEphem		 Yes
@@ -1127,11 +1127,11 @@ A3C
 
             BEGIN Animation
 
-                StartTime		 18 Aug 2018 04:00:00.000000000
-                EndTime		 18 Aug 2018 04:59:59.000000000
-                CurrentTime		 18 Aug 2018 04:47:30.000000000
+                StartTime		 18 Aug 2018 03:45:00.000000000
+                EndTime		 18 Aug 2018 04:44:59.000000000
+                CurrentTime		 18 Aug 2018 04:50:30.000000000
                 Direction		 Reverse
-                UpdateDelta		 30
+                UpdateDelta		 5
                 RefreshDelta		 0.010000
                 XRealTimeMult		 1
                 RealTimeOffset		 0
@@ -1212,8 +1212,8 @@ A3C
                     BEGIN MapAttributes
                         PrimaryBody		 Earth
                         SecondaryBody		 Sun
-                        CenterLatitude		 8.875841336116906
-                        CenterLongitude		 109.4823429454728
+                        CenterLatitude		 0
+                        CenterLongitude		 113.2611313506768
                         ProjectionAltitude		 63621860
                         FieldOfView		 35
                         OrthoDisplayDistance		 20000000
@@ -1236,7 +1236,7 @@ A3C
                         ShowImageNames		 Off
                         ImageNameFont		 0
                         Projection		 EquidistantCylindrical
-                        Resolution		 Low
+                        Resolution		 VeryLow
                         CoordinateSys		 ECF
                         UseBackgroundImage		 On
                         UseBingForBackground		 On
@@ -1249,10 +1249,10 @@ A3C
                         UseCloudsFile		 Off
                         BEGIN ZoomLocations
                             BEGIN ZoomLocation
-                                CenterLat		 8.875841336116906
-                                CenterLon		 109.4823429454728
-                                ZoomWidth		 317.4497041420117
-                                ZoomHeight		 162
+                                CenterLat		 0
+                                CenterLon		 113.2611313506768
+                                ZoomWidth		 360
+                                ZoomHeight		 180
                             END ZoomLocation
                         END ZoomLocations
                         UseVarAspectRatio		 No
@@ -1366,7 +1366,6 @@ A3C
 
                     BEGIN RecordMovie
                         OutputFormat		 WMV
-                        Directory		 D:\AGI\STK\RLSTAR\
                         BaseName		 Frame
                         Digits		 4
                         Frame		 0
@@ -1426,7 +1425,7 @@ A3C
 
                     BEGIN Style
                         Name		 DefaultWithBing
-                        Time		 178329600
+                        Time		 178330500
                         UpdateDelta		 10
 
                         BEGIN MapAttributes
@@ -1554,7 +1553,6 @@ A3C
 
                         BEGIN RecordMovie
                             OutputFormat		 WMV
-                            Directory		 D:\AGI\STK\RLSTAR\
                             BaseName		 Frame
                             Digits		 4
                             Frame		 0
@@ -1613,7 +1611,7 @@ A3C
 
                     BEGIN Style
                         Name		 DefaultWithoutBing
-                        Time		 178329600
+                        Time		 178330500
                         UpdateDelta		 10
 
                         BEGIN MapAttributes
@@ -1741,7 +1739,6 @@ A3C
 
                         BEGIN RecordMovie
                             OutputFormat		 WMV
-                            Directory		 D:\AGI\STK\RLSTAR\
                             BaseName		 Frame
                             Digits		 4
                             Frame		 0

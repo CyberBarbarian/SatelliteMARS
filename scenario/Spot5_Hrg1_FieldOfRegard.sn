@@ -1,0 +1,51 @@
+STK.V.9.0
+WrittenBy    StandardObjectCatalog
+BEGIN Sensor
+	Name		Spot5_Hrg1_FieldOfRegard
+BEGIN Pattern
+	BEGIN Rectangular
+		UpDownAngle                  58.2
+		SideToSideAngle              6
+		AngularPatternResolution     3
+	END Rectangular
+END Pattern
+BEGIN Pointing
+	BEGIN FixedInRef
+	Begin Fixed
+	PointingMethod          AzEl
+	Sequence                213
+	Qx                      0
+	Qy                      1
+	Qz                      0
+	Qs                      0
+	END Fixed
+		Reference
+			ICR(CBF)	../
+	End FixedInRef
+END Pointing
+BEGIN Extensions
+	BEGIN Graphics
+		BEGIN Attributes
+			Inherit             Yes
+			Show                Yes
+			LineStyle           1
+			LineWidth            1.0
+			PatternColor        #ffff00
+		END Attributes
+	END Graphics
+	BEGIN Desc
+		ShortText    24
+Spot5_Hrg1_FieldOfRegard
+		LongText     245
+Short Name  	: Spot5_Hrg1_FieldOfRegard
+Pattern type	: Rectangular
+Dimensions:
+   Horizontal Half Angle	: 3 [Degrees] 
+   Vertical Half Angle 	: 29.1 [Degrees] 
+Pointing:
+   Pointing Azimuth 	: 0 [Degrees]
+   Pointing Elevation : 90 [Degrees]
+
+	END Desc
+END Extensions
+END Sensor

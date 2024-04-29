@@ -148,7 +148,6 @@ BEGIN SceneWindow
 
         BEGIN RecordMovie
             OutputFormat		 WMV
-            Directory		 D:\AGI\STK\RLSTAR\
             BaseName		 VOsnap
             Digits		 4
             Frame		 0
@@ -209,52 +208,6 @@ BEGIN SceneWindow
 
         BEGIN Globe
             AA		 Yes
-            BeginCentralBody "Sun"
-                Show		 Yes
-                Textured		 No
-                AltOffset		 0
-                Color		 #ffff00
-                SpecularColor		 #545454
-                Shininess		 40
-                ShowWater		 No
-                _AGI_PIBEGINTERRAINIMAGECALLDATA "SRC"
-                    BlendMode		 Value
-                    BlendFactor		 1
-                    BlendAltitudeLowerFactor		 1
-                    BlendAltitudeUpperFactor		 0
-                    BlendAltitudeLowerAltitude		 500000
-                    BlendAltitudeUpperAltitude		 2.5e+06
-                    TextureRole		 Day
-                    URI		 "file:///Sun.jp2"
-                    BeginImageSetDefOn
-                    END
-                    InBase		 Yes
-                    BaseOn		 Yes
-                END
-            EndCentralBody
-            BeginCentralBody "Moon"
-                Show		 Yes
-                Textured		 Yes
-                AltOffset		 0
-                Color		 #ffffff
-                SpecularColor		 #545454
-                Shininess		 40
-                ShowWater		 No
-                _AGI_PIBEGINTERRAINIMAGECALLDATA "SRC"
-                    BlendMode		 Value
-                    BlendFactor		 1
-                    BlendAltitudeLowerFactor		 1
-                    BlendAltitudeUpperFactor		 0
-                    BlendAltitudeLowerAltitude		 500000
-                    BlendAltitudeUpperAltitude		 2.5e+06
-                    TextureRole		 Day
-                    URI		 "file:///Moon.jp2"
-                    BeginImageSetDefOn
-                    END
-                    InBase		 Yes
-                    BaseOn		 Yes
-                END
-            EndCentralBody
             BeginCentralBody "Earth"
                 Show		 Yes
                 Textured		 Yes
@@ -295,6 +248,52 @@ BEGIN SceneWindow
                     BlendAltitudeLowerAltitude		 500000
                     BlendAltitudeUpperAltitude		 2.5e+06
                     URI		 "virtual_earth://virtualearth.net/Aerial.ve"
+                    BeginImageSetDefOn
+                    END
+                    InBase		 Yes
+                    BaseOn		 Yes
+                END
+            EndCentralBody
+            BeginCentralBody "Sun"
+                Show		 Yes
+                Textured		 No
+                AltOffset		 0
+                Color		 #ffff00
+                SpecularColor		 #545454
+                Shininess		 40
+                ShowWater		 No
+                _AGI_PIBEGINTERRAINIMAGECALLDATA "SRC"
+                    BlendMode		 Value
+                    BlendFactor		 1
+                    BlendAltitudeLowerFactor		 1
+                    BlendAltitudeUpperFactor		 0
+                    BlendAltitudeLowerAltitude		 500000
+                    BlendAltitudeUpperAltitude		 2.5e+06
+                    TextureRole		 Day
+                    URI		 "file:///Sun.jp2"
+                    BeginImageSetDefOn
+                    END
+                    InBase		 Yes
+                    BaseOn		 Yes
+                END
+            EndCentralBody
+            BeginCentralBody "Moon"
+                Show		 Yes
+                Textured		 Yes
+                AltOffset		 0
+                Color		 #ffffff
+                SpecularColor		 #545454
+                Shininess		 40
+                ShowWater		 No
+                _AGI_PIBEGINTERRAINIMAGECALLDATA "SRC"
+                    BlendMode		 Value
+                    BlendFactor		 1
+                    BlendAltitudeLowerFactor		 1
+                    BlendAltitudeUpperFactor		 0
+                    BlendAltitudeLowerAltitude		 500000
+                    BlendAltitudeUpperAltitude		 2.5e+06
+                    TextureRole		 Day
+                    URI		 "file:///Moon.jp2"
                     BeginImageSetDefOn
                     END
                     InBase		 Yes
@@ -385,16 +384,16 @@ BEGIN SceneWindow
         END
         BEGIN CentralBodyOpts
             BeginCentralBody
+                Name		 "Earth"
+                ShowLabel		 No
+            EndCentralBody
+            BeginCentralBody
                 Name		 "Sun"
                 ShowLabel		 No
             EndCentralBody
             BeginCentralBody
                 Name		 "Moon"
                 ShowLabel		 Yes
-            EndCentralBody
-            BeginCentralBody
-                Name		 "Earth"
-                ShowLabel		 No
             EndCentralBody
         END CentralBodyOpts
         isShowingOverlay		 Yes
@@ -680,10 +679,6 @@ BEGIN SceneWindow
         RubberBandLineWidth		 2
         RubberBandCrosshairSize		 16
         RubberBandRGB		 0.66 0.66 0.66
-        _AGI_PIBEGINTYPEMGR3DSCENEDATA
-            BEGIN 3dScene
-            END
-        END
         BEGIN View
             ViewName		 STKVOInitialView
             ViewTime		 1.78344e+08
@@ -725,22 +720,22 @@ BEGIN SceneWindow
             UseLayer		 Yes
             FromName		 "Satellite/Satellite1"
             FromRegPosAttView		 "Point"
-            FromPosition		  1.9474961800346512e+06 -1.6333203655981463e+06 -6.7368817009590240e+06
-            FromOffset		  7.1631696844699206e+00  2.0787171275504750e+02 -3.6326332935038096e+02
+            FromPosition		  1.4907673059380795e+06 -5.9540657867299230e+05 -7.0205395230518784e+06
+            FromOffset		 -2.9484877262345783e+01  2.5557557433301110e+02 -3.3020292886578829e+02
             FromOffsetLLR		  7.8087491150592903e-01 -2.9774103611083871e+00  4.1859551647666848e+02
             ToName		 "Satellite/Satellite1"
             ToRegPosAttView		 "Point"
-            ToPosition		  1.9474890168649668e+06 -1.6335282373109013e+06 -6.7365184376296736e+06
+            ToPosition		  1.4907967908153418e+06 -5.9566215424732526e+05 -7.0202093201230131e+06
             ToOffset		  0.0000000000000000e+00 -0.0000000000000000e+00  0.0000000000000000e+00
             ToOffsetLLR		  0.0000000000000000e+00  0.0000000000000000e+00  0.0000000000000000e+00
             ConstantDistanceType		 None
             ConstantDistanceValue		 1
-            UpVector		  3.6383947537948280e-01 -8.1152918736254576e-01 -4.5721025165045126e-01
-            ViewRad		  4.1859551647662363e+02
-            ViewQuat		  9.2162850501883331e-01 -3.1208235032842105e-02  3.7931130578248956e-01  7.5827950707295894e-02
+            UpVector		  3.6124988762997001e-01 -7.2150670476878964e-01 -5.9070008774421001e-01
+            ViewRad		  4.1859551647627171e+02
+            ViewQuat		  9.2162850501891225e-01 -3.1208235032997224e-02  3.7931130578219663e-01  7.5827950707737790e-02
             ViewCoordSystem		 From
             ViewFromToMode		 FromTo
-            ViewToCBIMtx		  3.9288922438563550e-01 -8.6121191924988238e-01  3.2241601620203036e-01 -8.7890767360014155e-01 -4.5479861561586549e-01 -1.4380375697692827e-01  2.7047986736250990e-01 -2.2687496418914632e-01 -9.3561123976560512e-01
+            ViewToCBIMtx		  4.5219615579173628e-01 -8.7550661680355957e-01  1.7031382979770504e-01 -8.6756202676506700e-01 -4.7607404039389656e-01 -1.4383892998183928e-01  2.0701392803979599e-01 -8.2714400174433211e-02 -9.7483514585868236e-01
             UseUpAxis		 Yes
             UpAxisType		 Z
             UserDefinedUpAxis		  0.0000000000000000e+00  0.0000000000000000e+00  1.0000000000000000e+00
@@ -751,7 +746,7 @@ BEGIN SceneWindow
             MinAngleToUpAxis		  8.7266462599716477e-03
             InitUpAxisUp		 Yes
             TempUpAxisUp		 Yes
-            CrossAxis		 -1.6344567446096211e-01  9.8655233591533364e-01  0.0000000000000000e+00
+            CrossAxis		 -1.6344567446188801e-01  9.8655233591518010e-01  0.0000000000000000e+00
             DefaultOffset		  9.3750000000000000e+01
             BaseDefaultOffset		  7.5000000000000000e+01
         END View
@@ -766,7 +761,7 @@ BEGIN SceneWindow
 END SceneWindow
 BEGIN View
     ViewName		 HomeView
-    ViewTime		 178329600
+    ViewTime		 178330500
     ViewUpdateDelta		 10
     CentralBody		 Earth
     BEGIN ViewCrdnAxes

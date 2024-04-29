@@ -1,0 +1,68 @@
+STK.V.9.0
+WrittenBy    StandardObjectCatalog
+BEGIN Sensor
+	Name		Spot5_Hrs2_Vis_FixedPt_FieldOfView
+BEGIN Pattern
+	BEGIN Rectangular
+		UpDownAngle                  8.4
+		SideToSideAngle              4
+		AngularPatternResolution     3
+	END Rectangular
+END Pattern
+BEGIN Pointing
+	Begin Fixed
+	PointingMethod          AzEl
+	Sequence                213
+	Qx                      1.28956097503226E-16
+	Qy                      -0.17364817766693
+	Qz                      2.27384393166902E-17
+	Qs                      0.984807753012208
+	END Fixed
+END Pointing
+BEGIN Extensions
+	BEGIN Graphics
+		BEGIN Attributes
+			Inherit             Yes
+			Show                Yes
+			LineStyle           0
+			LineWidth            1.0
+			PatternColor        #00ff00
+		END Attributes
+	END Graphics
+	BEGIN Desc
+		ShortText    5
+HRS-2
+		LongText     953
+Name 		: HRS-2
+Role 		: OpticalImager
+Health 		: Unknown
+Operations 	: HRS (High Resolution Stereoscopic) system is comprised of two identical instruments for stereo imaging.  HRS-1 and HRS-2 are capable of 10-meter cross-track and 5-meter along-track panchromatic ground imaging.
+Manufacturer 	: EADS Astrium SAS
+
+Optical Operation # 1 
+SPECTRUM CHARACTERISTICS:
+# of spectrum bands: 1
+Upper Spectrum Type      	: Visible
+Lower Spectrum Type      	: Visible
+Spectrum Band      	: 
+    Lower Wavelength 	 : 480 [Nanometers]
+    Upper Wavelength 	 : 700 [Nanometers]
+
+  RESOLUTIONS:
+      CrossTrackResolution 10 [Meters]
+      InTrackResolution 5 [Meters]
+
+Field of View Properties 
+Short Name  	: Spot5_Hrs2_Vis_FixedPt_FieldOfView
+Pattern type	: Rectangular
+Dimensions:
+   Horizontal Half Angle	: 2 [Degrees] 
+   Vertical Half Angle 	: 4.2 [Degrees] 
+Pointing:
+   Pointing Azimuth 	: 180 [Degrees]
+   Pointing Elevation : 70 [Degrees]
+
+
+	END Desc
+END Extensions
+END Sensor

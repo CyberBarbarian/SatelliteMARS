@@ -1,0 +1,65 @@
+STK.V.9.0
+WrittenBy    StandardObjectCatalog
+BEGIN Satellite
+	Name		Spot5_27421
+BEGIN VehiclePath
+	CentralBody				Earth
+	BEGIN SGP4
+		VersionIndicator    20080918
+		SSCNumber           27421
+		TimeStep            60.0
+		IntlDesignator      2002-021A
+		CommonName          SPOT 5
+	END SGP4
+END VehiclePath
+BEGIN Attitude
+	BEGIN Profile
+		BEGIN ECFVVLH
+		END ECFVVLH
+	END Profile
+END Attitude
+BEGIN Extensions
+	BEGIN Desc
+		ShortText 6
+SPOT 5
+		LongText 755
+SPOT 5
+CatalogNumber: 27421
+InternationalID: 2002-021A
+Civilian satellite
+Status             	: Active
+Classification Notes	: The SPOT optical imaging satellite series is a major provider of long term high resolution imagery for the world community.
+MISSION: 
+  Mission Class: EarthObservation
+   Mission Types: GroundImaging
+
+
+ORBIT INFORMATION:
+
+Launch Date   	: 2002-05-04
+Launch notes  	: 
+
+PLATFORM NOTES:
+Dry Mass             		: 2850 [Kilograms]
+Launch Mass          		: 3000 [Kilograms]
+Shape: 
+ShapeType: RectangularPrism
+   3.1 [Meters] {Width}
+   3.1 [Meters] {Length}
+   5.7 [Meters] {Height}
+
+https://sdf10.agi.com/content/files/STK Standard Objects/Spacecraft/SPOT/AGI.Data.StandardObjectCatalog.Stk.StkObjectData.sa
+	END Desc
+END Extensions
+BEGIN SubObjects
+Class Sensor
+	Spot5_Hrg1_Vis_Ir_MirrorPt_FieldOfView
+	Spot5_Hrg1_FieldOfRegard
+	Spot5_Hrg2_Vis_Ir_MirrorPt_FieldOfView
+	Spot5_Hrg2_FieldOfRegard
+	Spot5_Hrs1_Vis_FixedPt_FieldOfView
+	Spot5_Hrs2_Vis_FixedPt_FieldOfView
+	Spot5_Veg_Vis_Ir_FixedPt_FieldOfView
+END Class
+END SubObjects
+END Satellite

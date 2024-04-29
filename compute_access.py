@@ -45,7 +45,7 @@ def compute_access_for_places(places, satellite_names, visible=1):
 def save_access_results(filename, results):
     with open(filename, 'w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(['batch_id', 'task_id', 'latitude', 'longitude', 'satellite', 'intervals'])
+        writer.writerow(['batch_id', 'task_id', 'satellite', 'intervals'])
         for result in results:
             place_name, satellite_name, intervals = result
             batch_id, task_id = place_name.split('_')[1], place_name.split('_')[2]
@@ -73,4 +73,4 @@ def compute_access(_missions_filename='data/missions.csv', _access_filename='dat
 
 
 if __name__ == '__main__':
-    compute_access(visible=1)
+    compute_access(visible=0)

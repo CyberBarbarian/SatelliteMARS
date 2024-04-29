@@ -23,7 +23,7 @@ Level3SwapDistance		 400000000
 Level4SwapDistance		 600000000
 ShowMarker		 Yes
 BEGIN Marker
-    Show		 Yes
+    Show		 No
     Type		 LineGraphic
     Shape		 Point
     IsTransparent		 No
