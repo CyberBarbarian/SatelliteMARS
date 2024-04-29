@@ -24,9 +24,9 @@ def write_data(filename, data, fieldnames):
 
 def randomize_task(task):
     # 重置任务收益，观测时长和内存消耗
-    task['reward'] = random.randint(5, 15)
-    task['observation_duration'] = random.randint(5, 15)
-    task['memory_usage'] = random.randint(5, 15)
+    task['reward'] = random.randint(1, 10)
+    task['observation_duration'] = random.randint(3, 6)
+    task['memory_usage'] = random.randint(3, 6)
     # 调整到达时间
     arrival_time = int(task['arrival_time_seconds'])
     delta_seconds = random.randint(-60, 60)
@@ -45,10 +45,10 @@ def augment_data(original_data, num_samples, num_batches):
 
 
 if __name__ == "__main__":
-    num_samples = 500  # Number of tasks to select for each batch
+    num_samples = 50  # Number of tasks to select for each batch
     num_batches = 1000  # Number of batches to create
-    input_filename = 'data/hot_MRL_data_4000_1.csv'
-    output_filename = f'data/hot_MRL_data_{num_samples}_{num_batches}_augmented.csv'
+    input_filename = 'data/augment/MRL_data_1000_1.csv'
+    output_filename = f'data/augment/MRL_data_{num_samples}_{num_batches}_augmented.csv'
     original_data = load_data(input_filename)
     fieldnames = list(original_data[0].keys())  # Assume all dicts have the same keys
 
