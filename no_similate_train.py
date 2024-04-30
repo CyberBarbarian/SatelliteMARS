@@ -8,7 +8,6 @@ import torch
 from torch.utils.tensorboard import SummaryWriter
 
 from MADDPG import MADDPG, no_similate_evaluate
-# from graduate_project import utils
 from no_similate_env import MultiEnv
 from no_similate_utils import ReplayBuffer, Task, check_time_window
 
@@ -27,10 +26,10 @@ CRITIC_LR = 1e-2
 GAMMA = 0.95
 TAU = 1e-2
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 scenario = "STK_EPISODE_100_noprint_no_similate_test2"
 # 模型保存地址
-current_path = os.path.dirname(os.path.realpath(__file__))
-agent_path = current_path + "/models_D/" + scenario + "/"
+agent_path = "models_D/" + scenario + "/"
 timestamp = time.strftime("%Y%m%d%H%M%S")
 
 # TODO：设置观测量，对观测结果进行绘图表示
@@ -50,7 +49,7 @@ critic_input_dim = sum(states_dim) + sum(action_dim)
 # TODO:应该把任务的状态也作为环境的一部分
 agent = MADDPG(env=env, states_dim=states_dim, actions_dim=action_dim, hidden_dim_1=128, hidden_dim_2=100,
                critic_input_dim=critic_input_dim,
-               actor_lr=ACTOR_LR, critic_lr=CRITIC_LR, gamma=GAMMA, tau=TAU)
+               actor_lr=ACTOR_LR, critic_lr=CRITIC_LR, gamma=GAMMA, tau=TAU, device=device)
 total_step = 0
 return_list = []
 total_reward_list = []
@@ -58,9 +57,8 @@ total_reward_list = []
 # 需要任务的id，任务到达时间，任务奖励，任务内存消耗，任务时间消耗，任务结束时间 任务可被哪些卫星观测到
 # TODO: 一次性把csv里的数据都导给task，后续每一步直接用task，需要修改task类的输入
 task_set = [[] for _ in range(1001)]
-# 打开文件并创建csv阅读器
-with open(r'data/augment/MRL_data_50_1000_augmented.csv',
-          newline='') as csvfile:
+# 打开文件并创建csv阅读器 TODO:生成数据集csv文件
+with open(r'data\augment\MRL_data_400_1000_augmented.csv', newline='') as csvfile:
     reader = csv.reader(csvfile, delimiter=',')
     header = next(reader)
     for row in reader:
@@ -69,7 +67,7 @@ with open(r'data/augment/MRL_data_50_1000_augmented.csv',
                     exist_time=float(row[5]), reward=float(row[4]), cost_stor=float(row[6]),
                     observed_satellite=row[3], env=env)
         task_set[int(row[0])].append(task)
-
+print("ok")
 for episode in range(EPOCH_NUM):
     cur_task_set = task_set[episode + 1]
     state_dict = env.reset()
@@ -96,8 +94,7 @@ for episode in range(EPOCH_NUM):
                     or (env.remain_stor[name] - task.cost_stor) < 0  # 当前卫星的剩余容量是否足以支持该任务的消耗
                     # 因为任务的到达时间没有被排过序，所以每个任务之间的关系都要被判断一遍
                     or not (
-                            check_time_window(task.arrival_time, task.end_time,
-                                              env.time_window[name]))):  # 当前任务的到达时间是否在可执行范围内
+                    check_time_window(task.arrival_time, task.end_time, env.time_window[name]))):  # 当前任务的到达时间是否在可执行范围内
                 actions[i][0][0] = 0
 
         # 2.环境更新
@@ -120,17 +117,17 @@ for episode in range(EPOCH_NUM):
         total_reward += sum(reward)
         total_step += 1
         # TODO:如果所有agent的done都为True，才终止， 如果有agent的done为True，那么应该冻结该agent，使其action变为[0,1]
-        if all(done_value == True for done_value in done):
+        if all(done_value is True for done_value in done):
             break
 
-        if (replay_buffer.size() >= MINIMAL_SIZE and total_step % UPDATE_INTERVAL == 0):
+        if replay_buffer.size() >= MINIMAL_SIZE and total_step % UPDATE_INTERVAL == 0:
             sample = replay_buffer.sample(BATCH_SIZE)  # 满足采样条件才从缓冲池中进行采样
 
 
             def stack_sample(x):  # x 表示state/action/reward/next_state/done中的一个
                 recover = [[sub_x[i] for sub_x in x]  # sub_x 表示其中的一个样本（包含好多agent）, sub_x[i]表示第i个agent的内容
                            for i in range(len(x[0]))]  # len(x[0]) 表明有几个样本 # recover按agent为核心进行划分维度，x是以经验的条数进行划分
-                return [torch.FloatTensor(np.vstack(i))
+                return [torch.FloatTensor(np.vstack(i)).to(device)
                         for i in recover]
 
 
@@ -170,20 +167,20 @@ print("运行时间：", runTime)
 
 # TODO:再添一段记录每个episode中的total_reward
 total_reward_array = np.array(total_reward_list)
-np.save('4_25_total_reward_array_test3.npy', total_reward_array)
+np.save('4_25_total_reward_array_test5.npy', total_reward_array)
 
 return_array = np.array(return_list)
-np.save('4_25_total_return_array_test3.npy', return_array)
+np.save('4_25_total_return_array_test5.npy', return_array)
 
 writer = SummaryWriter("logs_v2_add_time")
 # 查看tensorboard: 1.cd到logs所在的目标下  2.tensorboard --logdir=logs_v1
 
 for i, reward in enumerate(total_reward_array):
-    writer.add_scalar('total_reward_v2', reward, i)
+    writer.add_scalar('total_reward_v4', reward, i)
 
 for j in range(env.agent_num):
     for i, reward in enumerate(return_array[:, j]):
-        writer.add_scalar(f'Yaogan_{j + 1}_reward_v2', reward, i)
+        writer.add_scalar(f'Yaogan_{j + 1}_reward_v4', reward, i)
 
 writer.close()
 

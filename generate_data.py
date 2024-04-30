@@ -37,4 +37,4 @@ def generate_data(batch_size, batch_num, visible=1, prefix=None):
 
 
 if __name__ == '__main__':
-    generate_data(1000, 1, visible=0, prefix=f'augment/')
+    generate_data(1000, 1, visible=0, prefix=f'data/merge/')

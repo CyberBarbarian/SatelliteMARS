@@ -16,7 +16,7 @@ def sample_gumbel(shape, eps=1e-20, tens_type=torch.FloatTensor):
 
 def gumbel_softmax_sample(logits, temperature):
     """ 从Gumbel-Softmax分布中采样"""
-    y = logits + sample_gumbel(logits.shape, tens_type=type(logits.data))
+    y = logits + sample_gumbel(logits.shape, tens_type=type(logits.data)).to(logits.device)
     return F.softmax(y / temperature, dim=1)
 
 
@@ -24,13 +24,10 @@ def onehot_from_logits(logits, eps=0.01):
     """生成最优动作的独热形式"""
     # 要求输入logits至少为两维的[[]]
     argmax_acs = (logits == logits.max(1, keepdim=True)[0]).float()  # [1, 0]  # [10,2]
-    # rand_acs = torch.tensor(np.random.choice(range(logits.shape[0]), size=logits.shape[0]), dtype=torch.float)  # [10]
-    # rand_acs = torch.tensor(torch.eye(logits.shape[1])[[
-    #     np.random.choice(range(logits.shape[1]), size=logits.shape[0])
-    # ]])
+
     rand_acs = torch.eye(logits.shape[1])[
         np.random.choice(range(logits.shape[1]), size=logits.shape[0])
-    ].clone().detach()
+    ].clone().detach().to(logits.device)  # device
 
     return torch.stack([
         argmax_acs[i] if r > eps else rand_acs[i]
@@ -42,13 +39,13 @@ def gumbel_softmax(logits, temperature=0.1):
     """从Gumbel-Softmax分布中采样,并进行离散化, 目的是为了让离散分布的采样可导"""
     y = gumbel_softmax_sample(logits, temperature)  # logits就是self.actor输出的值
     y_hard = onehot_from_logits(y)
-    y = (y_hard - y).detach() + y
+    y = (y_hard.to(logits.device) - y).detach() + y
     return y
 
 
 class TwoLayerFC(torch.nn.Module):
     # 修改神经元数目：128，100
-    def __init__(self, num_in, hidden_dim_1, hidden_dim_2, num_out):
+    def __init__(self, num_in, hidden_dim_1,hidden_dim_2, num_out):
         super().__init__()
         self.fc1 = torch.nn.Linear(num_in, hidden_dim_1)
         self.fc2 = torch.nn.Linear(hidden_dim_1, hidden_dim_2)
@@ -63,15 +60,11 @@ class TwoLayerFC(torch.nn.Module):
 
 
 class DDPG:
-    def __init__(self, state_dim, action_dim, hidden_dim_1, hidden_dim_2, critic_input_dim, actor_lr, critic_lr):
-        self.actor = TwoLayerFC(num_in=state_dim, hidden_dim_1=hidden_dim_1, hidden_dim_2=hidden_dim_2,
-                                num_out=action_dim)
-        self.target_actor = TwoLayerFC(num_in=state_dim, hidden_dim_1=hidden_dim_1, hidden_dim_2=hidden_dim_2,
-                                       num_out=action_dim)
-        self.critic = TwoLayerFC(num_in=critic_input_dim, hidden_dim_1=hidden_dim_1, hidden_dim_2=hidden_dim_2,
-                                 num_out=1)
-        self.target_critic = TwoLayerFC(num_in=critic_input_dim, hidden_dim_1=hidden_dim_1, hidden_dim_2=hidden_dim_2,
-                                        num_out=1)
+    def __init__(self, state_dim, action_dim, hidden_dim_1, hidden_dim_2, critic_input_dim, actor_lr, critic_lr, device):
+        self.actor = TwoLayerFC(num_in=state_dim, hidden_dim_1=hidden_dim_1, hidden_dim_2=hidden_dim_2, num_out=action_dim).to(device)
+        self.target_actor = TwoLayerFC(num_in=state_dim, hidden_dim_1=hidden_dim_1,hidden_dim_2=hidden_dim_2, num_out=action_dim).to(device)
+        self.critic = TwoLayerFC(num_in=critic_input_dim, hidden_dim_1=hidden_dim_1,hidden_dim_2=hidden_dim_2, num_out=1).to(device)
+        self.target_critic = TwoLayerFC(num_in=critic_input_dim, hidden_dim_1=hidden_dim_1, hidden_dim_2=hidden_dim_2, num_out=1).to(device)
 
         # 初始化目标网络的参数
         self.target_critic.load_state_dict(self.critic.state_dict())
@@ -99,22 +92,21 @@ class DDPG:
 
 
 class MADDPG:
-    def __init__(self, env, states_dim, actions_dim, hidden_dim_1, hidden_dim_2, critic_input_dim, actor_lr, critic_lr,
-                 gamma, tau):
+    def __init__(self, env, states_dim, actions_dim, hidden_dim_1,hidden_dim_2, critic_input_dim, actor_lr, critic_lr, gamma, tau, device):
         self.agents = []
         for i in range(env.agent_num):
             self.agents.append(
-                DDPG(state_dim=states_dim[i], action_dim=actions_dim[i], hidden_dim_1=hidden_dim_1,
-                     hidden_dim_2=hidden_dim_2,
-                     critic_input_dim=critic_input_dim, actor_lr=actor_lr, critic_lr=critic_lr)
+                DDPG(state_dim=states_dim[i], action_dim=actions_dim[i], hidden_dim_1=hidden_dim_1, hidden_dim_2=hidden_dim_2,
+                     critic_input_dim=critic_input_dim, actor_lr=actor_lr, critic_lr=critic_lr, device=device)
             )
         self.gamma = gamma
         self.tau = tau
         self.critic_criterion = torch.nn.MSELoss()
+        self.device = device
 
     def take_action(self, states, explore):
         states = [  # 这里states[i]再加一个[]，表示将其变为两维的
-            torch.tensor([states[i]], dtype=torch.float)
+            torch.tensor([states[i]], dtype=torch.float, device=self.device)
             for i in range(len(self.agents))
         ]  # array->tensor
         return [
@@ -126,7 +118,6 @@ class MADDPG:
     def policies(self):
         """返回每个agent的目标策略网络，在update中更新参数时用"""
         return [agt.actor for agt in self.agents]
-
     @property
     def target_policies(self):
         """返回每个agent的目标策略网络，在update中更新参数时用"""
@@ -150,8 +141,7 @@ class MADDPG:
         # 由每个agent的一批次的某个经验组成 其维度为[采样经验数，agent数量*(next_obs维度+action维度)]
         target_critic_input = torch.cat((*next_observation, *all_target_act), dim=1)
         # 贝尔曼公式
-        target_critic_ouput = reward[agent_idx].view(-1, 1) + self.gamma * cur_agent.target_critic(
-            target_critic_input) * (1 - done[agent_idx].view(-1, 1))
+        target_critic_ouput = reward[agent_idx].view(-1, 1) + self.gamma*cur_agent.target_critic(target_critic_input) * (1 - done[agent_idx].view(-1, 1))
 
         critic_input = torch.cat((*observation, *action), dim=1)
         critic_output = cur_agent.critic(critic_input)
@@ -280,3 +270,7 @@ def no_similate_evaluate(env, agent, task_set, n_episode=3):
             if all(done_value is True for done_value in done):
                 break
     return returns.tolist()
+
+
+
+
