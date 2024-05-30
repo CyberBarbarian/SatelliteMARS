@@ -18,17 +18,6 @@ class Task:
         satellite_list = observed_satellite.split(', ')
         satellite_set = set(satellite_list)
         self.observed_satellite = {i: i in satellite_set for i in env.agents}
-        # self.longitude = random.uniform(-30, 30)
-        # self.latitude = random.uniform(-60, 60)
-        # # 任务的3个状态：时间消耗，内存消耗，奖励
-        # self.exist_time = random.uniform(180.0, 480.0)   # 单位为：s
-        # self.reward = self.exist_time * 0.04  # 14.4~24
-        # self.cost_stor = self.exist_time * 0.025  # cost在9~15之间
-        # self.name = name
-        # # 新加的, 假设仿真时间为1h
-        # self.arrival_time = random.randint(0, 3600)
-        # self.end_time = self.arrival_time + self.exist_time
-        # self.observed_satellite = {'YAOGAN-1': 1, 'YAOGAN-2': 1, 'YAOGAN-3': 1}  # 如要修改卫星个数，可手动修改。如果为0，表示不可被观测
 
 
 class ReplayBuffer:
@@ -74,8 +63,3 @@ def moving_average(a, window_size):
     begin = np.cumsum(a[:window_size - 1])[::2] / r
     end = (np.cumsum(a[:-window_size:-1])[::2] / r)[::-1]
     return np.concatenate((begin, middle, end))
-    # cumulative_sum[window_size:] 表示从window_size下标开始一直到结束
-    # cumulative_sum[:-window_size] 表示从开头开始，一直到倒数第window_size个停止
-    # np.arange(1, window_size-1, 2) 生成一个从 1 到 window-1 的整数序列，步长为 2
-    # [::2] 是 Python 切片操作，表示从数组的起始位置开始，不断进行索引下标+2，并取出相应的值。
-    # 5-9  10-18

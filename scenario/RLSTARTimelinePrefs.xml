@@ -1,13 +1,20 @@
 <?xml version = "1.0" standalone = "yes"?>
-<TimelineLine_Prefs STK_version = "11.6.0">
-    <Views Type = "Content">
-        <ContentView Name = "Scenario Availability">
-            <Row ClassName = "Scenario" ComponentName = "AvailabilityIntervals" DisplayName = "RLSTAR AvailabilityIntervals" IsDefaultName = "True" IsExpanded = "False" IsGroup = "False" IsHidden = "False" Path = "/Application/STK/Scenario/RLSTAR" Type = "IntervalList">
-                <Interval Name = "RLSTAR AvailabilityIntervals" StartTime = "18 Aug 2018 03:45:00.000" StopTime = "18 Aug 2018 04:44:59.000" />
+<TimelineLine_Prefs STK_version="11.6.0">
+    <Views Type="Content">
+        <ContentView Name="Scenario Availability">
+            <Row ClassName="Scenario" ComponentName="AvailabilityIntervals" DisplayName="RLSTAR AvailabilityIntervals"
+                 IsDefaultName="True" IsExpanded="False" IsGroup="False" IsHidden="False"
+                 Path="/Application/STK/Scenario/RLSTAR" Type="IntervalList">
+                <Interval Name="RLSTAR AvailabilityIntervals" StartTime="18 Aug 2018 03:45:00.000"
+                          StopTime="18 Aug 2018 04:44:59.000"/>
             </Row>
         </ContentView>
     </Views>
-    <Views Type = "Time">
-        <TimeView FullViewRulerStartTime = "0.000000" FullViewRulerStopTime = "0.000000" GlobalIntervalComp = "AnalysisInterval" GlobalIntervalCompPath = "/Application/STK/Scenario/RLSTAR" GlobalStartOffset = "0.000000" GlobalStartTime = "18 Aug 2018 03:45:00.000" GlobalStopOffset = "0.000000" GlobalStopTime = "18 Aug 2018 04:44:59.000" MaxFullViewTime = "0.000000" MinFullViewTime = "0.000000" Name = "Scenario Analysis Period" ViewportStartTime = "0.000000" ViewportStopTime = "0.000000" />
+    <Views Type="Time">
+        <TimeView FullViewRulerStartTime="0.000000" FullViewRulerStopTime="0.000000"
+                  GlobalIntervalComp="AnalysisInterval" GlobalIntervalCompPath="/Application/STK/Scenario/RLSTAR"
+                  GlobalStartOffset="0.000000" GlobalStartTime="18 Aug 2018 03:45:00.000" GlobalStopOffset="0.000000"
+                  GlobalStopTime="18 Aug 2018 04:44:59.000" MaxFullViewTime="0.000000" MinFullViewTime="0.000000"
+                  Name="Scenario Analysis Period" ViewportStartTime="0.000000" ViewportStopTime="0.000000"/>
     </Views>
 </TimelineLine_Prefs>

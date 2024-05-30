@@ -5,7 +5,7 @@ import time
 
 import numpy as np
 import torch
-from torch.utils.tensorboard import SummaryWriter
+from tqdm import tqdm
 
 from MADDPG import MADDPG, no_similate_evaluate
 from no_similate_env import MultiEnv
@@ -13,11 +13,12 @@ from no_similate_utils import ReplayBuffer, Task, check_time_window
 
 start = time.perf_counter()
 
+lab_name = "lab4"
 # 超参数
-EPOCH_NUM = 1000
-STEP_NUM = 50  # 相当于50个目标，一步生成一个目标
+EPOCH_NUM = 1500
+STEP_NUM = 400  # 相当于50个目标，一步生成一个目标
 BUFFERSIZE = 1000000
-BATCH_SIZE = 512
+BATCH_SIZE = 64
 HIDDEN_DIM = 64
 UPDATE_INTERVAL = 10
 MINIMAL_SIZE = 512  # 可以避免在缓冲区还不够大时就开始进行采样，从而确保训练的稳定性和有效性。
@@ -27,9 +28,8 @@ GAMMA = 0.95
 TAU = 1e-2
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-scenario = "STK_EPISODE_100_noprint_no_similate_test2"
-# 模型保存地址
-agent_path = "models_D/" + scenario + "/"
+
+agent_path = "models_D/" + lab_name + "/"
 timestamp = time.strftime("%Y%m%d%H%M%S")
 
 # TODO：设置观测量，对观测结果进行绘图表示
@@ -46,7 +46,6 @@ for action in env.actions.values():
     action_dim.append(len(action))
 
 critic_input_dim = sum(states_dim) + sum(action_dim)
-# TODO:应该把任务的状态也作为环境的一部分
 agent = MADDPG(env=env, states_dim=states_dim, actions_dim=action_dim, hidden_dim_1=128, hidden_dim_2=100,
                critic_input_dim=critic_input_dim,
                actor_lr=ACTOR_LR, critic_lr=CRITIC_LR, gamma=GAMMA, tau=TAU, device=device)
@@ -56,19 +55,40 @@ total_reward_list = []
 
 # 需要任务的id，任务到达时间，任务奖励，任务内存消耗，任务时间消耗，任务结束时间 任务可被哪些卫星观测到
 # TODO: 一次性把csv里的数据都导给task，后续每一步直接用task，需要修改task类的输入
-task_set = [[] for _ in range(1001)]
+task_set = [[] for _ in range(1501)]
 # 打开文件并创建csv阅读器 TODO:生成数据集csv文件
-with open(r'data\augment\MRL_data_400_1000_augmented.csv', newline='') as csvfile:
+
+# Setting up CSV logging
+
+reward_name = 'data/reward/' + lab_name + '_rewards.csv'
+data_name = 'data/lab/' + lab_name + '.csv'
+
+with open(reward_name, 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(
+        ['Epoch', 'Total Reward', 'Agent1 Reward', 'Agent2 Reward', 'Agent3 Reward', 'Agent4 Reward', 'Agent5 Reward',
+         'Agent6 Reward', 'Agent7 Reward'])
+
+with open(data_name, 'r', newline='') as csvfile:
     reader = csv.reader(csvfile, delimiter=',')
     header = next(reader)
-    for row in reader:
+    i = 0
+    for row in tqdm(reader):
+        i = i + 1
         task = Task(name=f"tar_{row[0]}_{row[1]}",
                     longitude=float(row[8]), latitude=float(row[7]), arrival_time=float(row[2]),
                     exist_time=float(row[5]), reward=float(row[4]), cost_stor=float(row[6]),
                     observed_satellite=row[3], env=env)
-        task_set[int(row[0])].append(task)
+        try:
+            task_set[int(row[0])].append(task)
+        except:
+            print(row[0])
+            print(int(row[0]))
+            print(i)
+
 print("ok")
-for episode in range(EPOCH_NUM):
+
+for episode in tqdm(range(EPOCH_NUM)):
     cur_task_set = task_set[episode + 1]
     state_dict = env.reset()
     state = []
@@ -76,8 +96,9 @@ for episode in range(EPOCH_NUM):
         state.append(state_value)
     ep_returns = 0
     total_reward = 0
+    total_step = 0  # 这里添加初始化total_step
+    agent_rewards = [0] * env.agent_num  # Track rewards per agent
     for step, task in enumerate(cur_task_set):
-        # task = Task(f"tar_{episode}_{step}", step)  # 这里的生成一个目标，理解为进行一个step
         # 将任务状态填入环境状态
         for i in range(env.agent_num):
             state[i][2] = task.exist_time
@@ -115,11 +136,12 @@ for episode in range(EPOCH_NUM):
         # 3.2 更新下一步状态
         state = next_obs_copy
         total_reward += sum(reward)
+        for i, agent_reward in enumerate(reward):
+            agent_rewards[i] += agent_reward
         total_step += 1
         # TODO:如果所有agent的done都为True，才终止， 如果有agent的done为True，那么应该冻结该agent，使其action变为[0,1]
         if all(done_value is True for done_value in done):
             break
-
         if replay_buffer.size() >= MINIMAL_SIZE and total_step % UPDATE_INTERVAL == 0:
             sample = replay_buffer.sample(BATCH_SIZE)  # 满足采样条件才从缓冲池中进行采样
 
@@ -139,7 +161,10 @@ for episode in range(EPOCH_NUM):
             # 更新目标网络参数
             agent.update_all_target()
     total_reward_list.append(total_reward)
-    print(f"{episode}完成！")
+    with open(reward_name, 'a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow([episode, total_reward] + agent_rewards)
+    # print(f"{episode}完成！")
     # 达到一定episode后，进行评估
     if (episode + 1) % 1 == 0:
         # 评估的话，需要专门的评估数据，这里暂时先用下一批次的代替
@@ -151,57 +176,17 @@ for episode in range(EPOCH_NUM):
 
     if total_reward > highest_reward:
         highest_reward = total_reward
-        print(f"Highest reward updated at episode {episode}:{round(highest_reward, 2)}")
+        # print(f"Highest reward updated at episode {episode}:{round(highest_reward, 2)}")
         for agent_i in range(env.agent_num):
             cur_agent = agent.agents[agent_i]
             flag = os.path.exists(agent_path)
             if not flag:
                 os.makedirs(agent_path)
             torch.save(cur_agent.actor.state_dict(),
-                       f"{agent_path}" + f"agent_{agent_i}_actor_{scenario}_{timestamp}.pth")
-        print("保存模型成功！")
+                       f"{agent_path}" + f"agent_{agent_i}_actor_{lab_name}_{timestamp}.pth")
+        # print("保存模型成功！")
 end = time.perf_counter()
 runTime = end - start
 
 print("运行时间：", runTime)
-
-# TODO:再添一段记录每个episode中的total_reward
-total_reward_array = np.array(total_reward_list)
-np.save('4_25_total_reward_array_test5.npy', total_reward_array)
-
-return_array = np.array(return_list)
-np.save('4_25_total_return_array_test5.npy', return_array)
-
-writer = SummaryWriter("logs_v2_add_time")
-# 查看tensorboard: 1.cd到logs所在的目标下  2.tensorboard --logdir=logs_v1
-
-for i, reward in enumerate(total_reward_array):
-    writer.add_scalar('total_reward_v4', reward, i)
-
-for j in range(env.agent_num):
-    for i, reward in enumerate(return_array[:, j]):
-        writer.add_scalar(f'Yaogan_{j + 1}_reward_v4', reward, i)
-
 writer.close()
-
-# plt.figure()
-# plt.plot(
-#     np.arange(total_reward_array.shape[0]),  # [0, 100]
-#     utils.moving_average(total_reward_array, 9)  # return_array[:, i]: [2, ]
-# )
-# plt.xlabel("Episodes")
-# plt.ylabel("total_reward")
-# plt.title("total_reward by MADDPG")
-# plt.show()
-
-
-# for i, agent_name in enumerate(env.agents):
-#     plt.figure()
-#     plt.plot(
-#         np.arange(return_array.shape[0]) * 2,  # [0, 100]
-#         utils.moving_average(return_array[:, i], 9)  # return_array[:, i]: [2, ]
-#     )
-#     plt.xlabel("Episodes")
-#     plt.ylabel("Returns")
-#     plt.title(f"{agent_name} by MADDPG")
-# plt.show()

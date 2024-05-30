@@ -1,5 +1,3 @@
-# from STK.integration.create_scenario_integration import ScenarioClass
-# from STK.target_class_xts import TargetClass
 from datetime import datetime
 
 import numpy as np
@@ -123,8 +121,6 @@ class MultiEnv:
         self.done = {i: False for i in self.agents}
         self.render_mode = "human"  # 可视化：human 非可视化：None
         self.time_window = {i: [] for i in self.agents}  # 时间窗口，用来存放已经接受的任务
-        # 新增mask
-        # self.mask = {i: 1 for i in self.agents}  # 1 表示接受和拒绝都能执行，当卫星不满足约束条件时，self.mask变为：0 其实只看第一个就行self.mask * self.action[name][0]
 
     def reset(self):
         """给出每个卫星的状态即可"""
@@ -159,30 +155,9 @@ class MultiEnv:
 
         # 需要先判断任务是否在当前卫星的时间窗口内，如果在的话对相应的卫星进行执行动作，那这个过程应该在产生动作的函数里面？
         for i, name in enumerate(self.agents):
-            # if actions[i][0][0] == 1 and (self.remain_time[name] - task.exist_time) >= 0 and (self.remain_stor[name] - task.cost_stor) >= 0:  # 动作空间的第一个位置为1表示接受，第二个位置为1表示拒绝 # TODO:改一下
-            #     num_of_accept += 1
             if actions[i][0][0] == 1:  # 动作空间的第一个位置为1表示接受，第二个位置为1表示拒绝 # TODO:改一下
                 num_of_accept += 1
 
-        # for i, name in enumerate(self.agents):
-        #     if (actions[i][0][0] == 1) and (self.done[name] == False) and (self.remain_time[name] - task.exist_time) >= 0 and (self.remain_stor[name] - task.cost_stor) >= 0:  # 需要加个等于0
-        #         self.reward[name] = np.log((task.reward / np.exp(num_of_accept*ALPHA)) + (task.reward / np.exp(num_of_accept*ALPHA)**2) + (task.reward / np.exp(num_of_accept*ALPHA)**3) - (task.cost_stor / task.reward) * BETA + 10)
-        #         self.remain_time[name] = self.remain_time[name] - task.exist_time
-        #         self.remain_stor[name] = self.remain_stor[name] - task.cost_stor
-        #         self.next_observation[name][0] = self.remain_time[name] / self.time_max  # 这个observation变了，会导致state也跟着一起变
-        #         self.next_observation[name][1] = self.remain_stor[name] / self.stor_max
-        #         # 添加当前任务的状态
-        #         self.next_observation[name][2] = task.exist_time
-        #         self.next_observation[name][3] = task.cost_stor
-        #         self.next_observation[name][4] = task.reward  # observation中的reward指的是任务本身的reward，而不是最后每个卫星获得的reward
-        #
-        #     else:
-        #         # 可能是action=0，可能是done=true，可能是剩余时间不足，也可能是任务的剩余存储容量不足，在这些情况下，next_obs的后3项只需变为当前任务的属性值即可，前两项不用改变
-        #         self.reward[name] = 0
-        #         self.next_observation[name][2] = task.exist_time
-        #         self.next_observation[name][3] = task.cost_stor
-        #         self.next_observation[name][4] = task.reward
-        #
         for i, name in enumerate(self.agents):
             if (actions[i][0][0] == 1):  # 需要加个等于0
                 self.reward[name] = np.log((task.reward / np.exp(num_of_accept * ALPHA)) + (
@@ -207,10 +182,6 @@ class MultiEnv:
                 self.next_observation[name][3] = task.cost_stor
                 self.next_observation[name][4] = task.reward
 
-        # if task.idx > ENDING_NUM:
-        #     for name in self.agents:
-        #         self.done[name] = True
-        # TODO: 控制结束条件，当只剩下一点时，就近似的将其当做是已经结束
         for name in self.agents:
             if self.next_observation[name][0] <= 0.1 or self.next_observation[name][1] <= 0.1:
                 self.done[name] = True

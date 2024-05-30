@@ -45,7 +45,7 @@ def gumbel_softmax(logits, temperature=0.1):
 
 class TwoLayerFC(torch.nn.Module):
     # 修改神经元数目：128，100
-    def __init__(self, num_in, hidden_dim_1,hidden_dim_2, num_out):
+    def __init__(self, num_in, hidden_dim_1, hidden_dim_2, num_out):
         super().__init__()
         self.fc1 = torch.nn.Linear(num_in, hidden_dim_1)
         self.fc2 = torch.nn.Linear(hidden_dim_1, hidden_dim_2)
@@ -60,11 +60,16 @@ class TwoLayerFC(torch.nn.Module):
 
 
 class DDPG:
-    def __init__(self, state_dim, action_dim, hidden_dim_1, hidden_dim_2, critic_input_dim, actor_lr, critic_lr, device):
-        self.actor = TwoLayerFC(num_in=state_dim, hidden_dim_1=hidden_dim_1, hidden_dim_2=hidden_dim_2, num_out=action_dim).to(device)
-        self.target_actor = TwoLayerFC(num_in=state_dim, hidden_dim_1=hidden_dim_1,hidden_dim_2=hidden_dim_2, num_out=action_dim).to(device)
-        self.critic = TwoLayerFC(num_in=critic_input_dim, hidden_dim_1=hidden_dim_1,hidden_dim_2=hidden_dim_2, num_out=1).to(device)
-        self.target_critic = TwoLayerFC(num_in=critic_input_dim, hidden_dim_1=hidden_dim_1, hidden_dim_2=hidden_dim_2, num_out=1).to(device)
+    def __init__(self, state_dim, action_dim, hidden_dim_1, hidden_dim_2, critic_input_dim, actor_lr, critic_lr,
+                 device):
+        self.actor = TwoLayerFC(num_in=state_dim, hidden_dim_1=hidden_dim_1, hidden_dim_2=hidden_dim_2,
+                                num_out=action_dim).to(device)
+        self.target_actor = TwoLayerFC(num_in=state_dim, hidden_dim_1=hidden_dim_1, hidden_dim_2=hidden_dim_2,
+                                       num_out=action_dim).to(device)
+        self.critic = TwoLayerFC(num_in=critic_input_dim, hidden_dim_1=hidden_dim_1, hidden_dim_2=hidden_dim_2,
+                                 num_out=1).to(device)
+        self.target_critic = TwoLayerFC(num_in=critic_input_dim, hidden_dim_1=hidden_dim_1, hidden_dim_2=hidden_dim_2,
+                                        num_out=1).to(device)
 
         # 初始化目标网络的参数
         self.target_critic.load_state_dict(self.critic.state_dict())
@@ -92,11 +97,13 @@ class DDPG:
 
 
 class MADDPG:
-    def __init__(self, env, states_dim, actions_dim, hidden_dim_1,hidden_dim_2, critic_input_dim, actor_lr, critic_lr, gamma, tau, device):
+    def __init__(self, env, states_dim, actions_dim, hidden_dim_1, hidden_dim_2, critic_input_dim, actor_lr, critic_lr,
+                 gamma, tau, device):
         self.agents = []
         for i in range(env.agent_num):
             self.agents.append(
-                DDPG(state_dim=states_dim[i], action_dim=actions_dim[i], hidden_dim_1=hidden_dim_1, hidden_dim_2=hidden_dim_2,
+                DDPG(state_dim=states_dim[i], action_dim=actions_dim[i], hidden_dim_1=hidden_dim_1,
+                     hidden_dim_2=hidden_dim_2,
                      critic_input_dim=critic_input_dim, actor_lr=actor_lr, critic_lr=critic_lr, device=device)
             )
         self.gamma = gamma
@@ -118,6 +125,7 @@ class MADDPG:
     def policies(self):
         """返回每个agent的目标策略网络，在update中更新参数时用"""
         return [agt.actor for agt in self.agents]
+
     @property
     def target_policies(self):
         """返回每个agent的目标策略网络，在update中更新参数时用"""
@@ -141,7 +149,8 @@ class MADDPG:
         # 由每个agent的一批次的某个经验组成 其维度为[采样经验数，agent数量*(next_obs维度+action维度)]
         target_critic_input = torch.cat((*next_observation, *all_target_act), dim=1)
         # 贝尔曼公式
-        target_critic_ouput = reward[agent_idx].view(-1, 1) + self.gamma*cur_agent.target_critic(target_critic_input) * (1 - done[agent_idx].view(-1, 1))
+        target_critic_ouput = reward[agent_idx].view(-1, 1) + self.gamma * cur_agent.target_critic(
+            target_critic_input) * (1 - done[agent_idx].view(-1, 1))
 
         critic_input = torch.cat((*observation, *action), dim=1)
         critic_output = cur_agent.critic(critic_input)
@@ -179,50 +188,6 @@ class MADDPG:
         for agt in self.agents:
             agt.soft_update(agt.actor, agt.target_actor, self.tau)
             agt.soft_update(agt.critic, agt.target_critic, self.tau)
-
-
-# def evaluate(env, sce, agent, cur_episode, n_episode=2, episode_length=50):
-#     """对学习的策略进行评估(仿真测试),此时不会进行探索!!!"""
-#     returns = np.zeros(env.agent_num)
-#     for episode in range(n_episode):
-#         # # 创建新的STK环境
-#         # name = f"stk_{cur_episode}_{episode}_evaluate"
-#         # print(f"创建场景{name}中...")
-#         # root_iaf = root.QueryInterface(STKObjects.IAgStkObject)
-#         # sce = root_iaf.Children.New(19, name)
-#         # create_satellite(sce=sce, lines=lines, tle_path=tle_path)
-#
-#         states_dict = env.reset()
-#         states = []
-#         for st in states_dict.values():
-#             states.append(st)
-#         for step in range(episode_length):
-#             task = Task(sce, f"tar_{cur_episode}_{episode}_{step}_eva", step)
-#             # 将任务状态填入环境状态
-#             for i in range(env.agent_num):
-#                 states[i][2] = task.exist_time
-#                 states[i][3] = task.cost_stor
-#                 states[i][4] = task.reward
-#
-#             actions = agent.take_action(states, explore=False)
-#             next_obs_dict, reward_dict, done_dict = env.step(actions, task, sce)
-#             next_obs = []
-#             reward = []
-#             done = []
-#             for next_obs_, reward_, done_ in zip(next_obs_dict.values(), reward_dict.values(), done_dict.values()):
-#                 next_obs.append(next_obs_)
-#                 reward.append(reward_)
-#                 done.append(done_)
-#             next_obs_copy = copy.deepcopy(next_obs)
-#             states = next_obs_copy  # 加入了更新状态的语句
-#             reward = np.array(reward)
-#             returns += reward / n_episode
-#             if all(done_value == True for done_value in done):
-#                 break
-#         # SAVE_PATH = rf"C:\Users\xts\PyProject\RL\STK\scenarios\{name}.sc"
-#         # root.SaveAs(SAVE_PATH)
-#         # root.CloseScenario()
-#     return returns.tolist()
 
 
 def no_similate_evaluate(env, agent, task_set, n_episode=3):
@@ -270,7 +235,3 @@ def no_similate_evaluate(env, agent, task_set, n_episode=3):
             if all(done_value is True for done_value in done):
                 break
     return returns.tolist()
-
-
-
-

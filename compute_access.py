@@ -67,7 +67,7 @@ def compute_access(_missions_filename='data/missions.csv', _access_filename='dat
         places = create_places(batch_missions, visible)
         access_results = compute_access_for_places(places, satellite_names, visible)
         batch_results.extend(access_results)
-        unload_places(places)
+        # unload_places(places)
     save_access_results(_access_filename, batch_results)
     print(f"Access finished! Results saved to {_access_filename}")
 
