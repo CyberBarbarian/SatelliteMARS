@@ -13,15 +13,14 @@ from no_similate_utils import ReplayBuffer, Task, check_time_window
 
 start = time.perf_counter()
 
-lab_name = "lab4"
-# 超参数
+lab_name = "lab"
 EPOCH_NUM = 1500
-STEP_NUM = 400  # 相当于50个目标，一步生成一个目标
+STEP_NUM = 400
 BUFFERSIZE = 1000000
 BATCH_SIZE = 64
 HIDDEN_DIM = 64
 UPDATE_INTERVAL = 10
-MINIMAL_SIZE = 512  # 可以避免在缓冲区还不够大时就开始进行采样，从而确保训练的稳定性和有效性。
+MINIMAL_SIZE = 512
 ACTOR_LR = 1e-2
 CRITIC_LR = 1e-2
 GAMMA = 0.95
@@ -29,11 +28,9 @@ TAU = 1e-2
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-agent_path = "models_D/" + lab_name + "/"
+agent_path = "models/" + lab_name + "/"
 timestamp = time.strftime("%Y%m%d%H%M%S")
 
-# TODO：设置观测量，对观测结果进行绘图表示
-# TODO:再设置一个仿真周期
 env = MultiEnv(agent_num=7)
 replay_buffer = ReplayBuffer(capacity=BUFFERSIZE)
 states = env.reset()
@@ -53,12 +50,7 @@ total_step = 0
 return_list = []
 total_reward_list = []
 
-# 需要任务的id，任务到达时间，任务奖励，任务内存消耗，任务时间消耗，任务结束时间 任务可被哪些卫星观测到
-# TODO: 一次性把csv里的数据都导给task，后续每一步直接用task，需要修改task类的输入
 task_set = [[] for _ in range(1501)]
-# 打开文件并创建csv阅读器 TODO:生成数据集csv文件
-
-# Setting up CSV logging
 
 reward_name = 'data/reward/' + lab_name + '_rewards.csv'
 data_name = 'data/lab/' + lab_name + '.csv'
@@ -96,87 +88,71 @@ for episode in tqdm(range(EPOCH_NUM)):
         state.append(state_value)
     ep_returns = 0
     total_reward = 0
-    total_step = 0  # 这里添加初始化total_step
-    agent_rewards = [0] * env.agent_num  # Track rewards per agent
+    total_step = 0
+    agent_rewards = [0] * env.agent_num
     for step, task in enumerate(cur_task_set):
-        # 将任务状态填入环境状态
         for i in range(env.agent_num):
             state[i][2] = task.exist_time
             state[i][3] = task.cost_stor
             state[i][4] = task.reward
 
-        # 1.产生动作,是两维的
         actions = agent.take_action(state, explore=True)
-        # 判断硬约束条件：（把原来在env.step里的搬过来）  认为：应该在根据状态产生动作之前就进行硬约束条件的判断
+
         for i, name in enumerate(env.agents):
-            if ((task.observed_satellite[name] is False)  # 是否可被当前卫星观测
-                    or (env.done[name] is True)  # 当前卫星是否已经不可再工作
-                    or (env.remain_time[name] - task.exist_time) < 0  # 当前卫星的剩余时间是否足以支持该任务的消耗
-                    or (env.remain_stor[name] - task.cost_stor) < 0  # 当前卫星的剩余容量是否足以支持该任务的消耗
-                    # 因为任务的到达时间没有被排过序，所以每个任务之间的关系都要被判断一遍
+            if ((task.observed_satellite[name] is False)
+                    or (env.done[name] is True)
+                    or (env.remain_time[name] - task.exist_time) < 0
+                    or (env.remain_stor[name] - task.cost_stor) < 0
                     or not (
-                    check_time_window(task.arrival_time, task.end_time, env.time_window[name]))):  # 当前任务的到达时间是否在可执行范围内
+                            check_time_window(task.arrival_time, task.end_time, env.time_window[name]))):
                 actions[i][0][0] = 0
 
-        # 2.环境更新
         next_obs_dict, reward_dict, done_dict = env.step(actions, task)
-        # 3.存储经验
-        # 3.1 处理数据格式
+
         next_obs = []
         reward = []
         done = []
         for next_obs_, reward_, done_ in zip(next_obs_dict.values(), reward_dict.values(), done_dict.values()):
             next_obs.append(next_obs_)
             reward.append(reward_)
-            done.append(done_)  # 用next_obs_copy解决了
+            done.append(done_)
         next_obs_copy = copy.deepcopy(next_obs)
 
         replay_buffer.add(states=state, actions=actions, reward=reward, next_state=next_obs_copy, done=done)
-
-        # 3.2 更新下一步状态
         state = next_obs_copy
         total_reward += sum(reward)
         for i, agent_reward in enumerate(reward):
             agent_rewards[i] += agent_reward
         total_step += 1
-        # TODO:如果所有agent的done都为True，才终止， 如果有agent的done为True，那么应该冻结该agent，使其action变为[0,1]
         if all(done_value is True for done_value in done):
             break
         if replay_buffer.size() >= MINIMAL_SIZE and total_step % UPDATE_INTERVAL == 0:
-            sample = replay_buffer.sample(BATCH_SIZE)  # 满足采样条件才从缓冲池中进行采样
+            sample = replay_buffer.sample(BATCH_SIZE)
 
 
-            def stack_sample(x):  # x 表示state/action/reward/next_state/done中的一个
-                recover = [[sub_x[i] for sub_x in x]  # sub_x 表示其中的一个样本（包含好多agent）, sub_x[i]表示第i个agent的内容
-                           for i in range(len(x[0]))]  # len(x[0]) 表明有几个样本 # recover按agent为核心进行划分维度，x是以经验的条数进行划分
+            def stack_sample(x):
+                recover = [[sub_x[i] for sub_x in x]
+                           for i in range(len(x[0]))]
                 return [torch.FloatTensor(np.vstack(i)).to(device)
                         for i in recover]
 
 
-            # action的类型是array
             sample = [stack_sample(x) for x in sample]
-            # 更新agent参数
             for agent_idx in range(env.agent_num):
                 agent.update(sample, agent_idx)
-            # 更新目标网络参数
             agent.update_all_target()
     total_reward_list.append(total_reward)
     with open(reward_name, 'a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow([episode, total_reward] + agent_rewards)
-    # print(f"{episode}完成！")
-    # 达到一定episode后，进行评估
     if (episode + 1) % 1 == 0:
-        # 评估的话，需要专门的评估数据，这里暂时先用下一批次的代替
         ep_returns = no_similate_evaluate(env=env, task_set=task_set, agent=agent)
         return_list.append(ep_returns)
-    # 保存训练参数
     if episode == 0:
         highest_reward = total_reward
 
     if total_reward > highest_reward:
         highest_reward = total_reward
-        # print(f"Highest reward updated at episode {episode}:{round(highest_reward, 2)}")
         for agent_i in range(env.agent_num):
             cur_agent = agent.agents[agent_i]
             flag = os.path.exists(agent_path)
@@ -184,7 +160,6 @@ for episode in tqdm(range(EPOCH_NUM)):
                 os.makedirs(agent_path)
             torch.save(cur_agent.actor.state_dict(),
                        f"{agent_path}" + f"agent_{agent_i}_actor_{lab_name}_{timestamp}.pth")
-        # print("保存模型成功！")
 end = time.perf_counter()
 runTime = end - start
 

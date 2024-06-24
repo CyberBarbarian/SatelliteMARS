@@ -36,21 +36,20 @@ def randomize_task(task):
 def augment_data(original_data, num_samples, num_batches):
     all_batches = []
     for _ in range(num_batches):
-        batch = random.sample(original_data, num_samples)  # Select random subset
-        augmented_batch = [randomize_task(task.copy()) for task in batch]  # Augment each task in the batch
+        batch = random.sample(original_data, num_samples)
+        augmented_batch = [randomize_task(task.copy()) for task in batch]
         all_batches.append(augmented_batch)
     return all_batches
 
 
 if __name__ == "__main__":
-    num_samples = 400  # Number of tasks to select for each batch
-    num_batches = 1000  # Number of batches to create
+    num_samples = 400
+    num_batches = 1000
     input_filename = 'data/augment/MRL_data_1000_1.csv'
     output_filename = f'data/lab/lab2_7.csv'
     original_data = load_data(input_filename)
-    fieldnames = list(original_data[0].keys())  # Assume all dicts have the same keys
+    fieldnames = list(original_data[0].keys())
 
-    # Ensure 'batch_id' and 'task_id' are included in fieldnames
     if 'batch_id' not in fieldnames:
         fieldnames.insert(0, 'batch_id')
     if 'task_id' not in fieldnames:
@@ -59,4 +58,3 @@ if __name__ == "__main__":
     augmented_batches = augment_data(original_data, num_samples, num_batches)
     write_data(output_filename, augmented_batches, fieldnames)
     print("Data augmentation complete and saved to", output_filename)
-    # sort.sort_csv(input_file=output_filename, output_file=output_filename.replace('.csv', '_sorted.csv'))

@@ -21,11 +21,6 @@ class Task:
 
 
 class ReplayBuffer:
-    """
-    经验池：
-    实现功能：添加经验， 拿出经验，经验池的动态长度
-    """
-
     def __init__(self, capacity):
         self.buffer = collections.deque(maxlen=capacity)
 
@@ -42,17 +37,12 @@ class ReplayBuffer:
 
 
 def check_time_window(task_start, task_end, unaccessible_ranges):
-    # unaccessible_ranges 是一个包含不可访问时间段的列表，每个元素是一个元组 (start, end)
     for unac_start, unac_end in unaccessible_ranges:
-        # 如果待检查的起始时间和结束时间都在当前不可访问时间段的开始之前
         if task_end <= unac_start:
             continue
-        # 如果待检查的起始时间和结束时间都在当前不可访问时间段的结束之后
-        if task_start >= unac_end + 5:  # 设置5为卫星执行不同任务时的转换时间
+        if task_start >= unac_end + 5:
             continue
-        # 否则，如果待检查时间段与当前不可访问时间段有交集，则认为不可访问
         return False
-    # 如果没有找到交集，则待检查时间段是可访问的
     return True
 
 
