@@ -1,39 +1,25 @@
-# 没人想写 README
+# README
 
-## mission.py
+## 参数设置
 
-规定了任务`mission`类，`mission`在实例化的时候就会随机生成经纬度等信息，如果需要修改对应信息，直接在`mission`类中修改即可；
+星机多智能体默认配置为5个卫星，2个WRJ，场景时间设置为3600s，任务奖励（1-10）、任务所需观测时间（3-6）均在一定范围内随机生成，每个场景默认训练1000批次，仿真软件场景存放在`scenario/RLSTAR.sc`中；在默认配置下，共设计有四个实验， 分别为`lab_50`，`lab_100`，`lab_200`，`lab_400`，每批次分别传入50、100、200、400个观测任务。
 
-## create_mission.py
+## 运行实验
 
-创建大量随机任务，存储在`data/missions.csv`中，可以修改创建任务规模；
+运行`no_similate_train.py`，读取场景下的指定实验文件，记录训练过程中不同批次的单个智能体奖励函数收益和总奖励函数收益，以CSV格式存放到`data/reward`/中，并将训练过程中奖励函数收益最高的模型存储到`models/`中；
 
-## compute_access.py
+> 输入：`data/lab/lab_50.csv`，`data/lab/lab_100.csv`，`data/lab/lab_200.csv`，`data/lab/lab_400.csv`
+>
+> 输出：`data/reward/lab_50_rewards.csv`，`data/reward/lab_100_rewards.csv`，`data/reward/lab_200_rewards.csv`，`data/reward/lab_400_rewards.csv`
 
-读取`data/missons.csv`中的任务，计算每个任务的可访问时段，存储在`data/access.csv`中；
-需要连接到已经打开的 STK 11 场景,场景储存在`scenario/RLSTAR.sc`中;
+运行`plot_training_rewards.py`，读取`data/reward`/中的收益文件并绘制模型奖励函数曲线。
 
-## handle_csv.py
-
-读取`data/missions.csv`和`data/access.csv`
-，进行对齐处理，计算当任务出现时，哪些卫星可以观测到，并将对应结果存储在`data/MRL_data.csv`中；
-
-## sort.py
-
-读取`data/MRL_data.csv`，对统一批次中的数据按照到达时间进行排序，将结果存储在`data/MRL_data_sorted.csv`中；
-
-## generate_data.py
-
-整合了`create_mission.py` `compute_access.py`、`handle_csv.py`、`sort.py`，可以一键生成数据；
-
-## augument_data.py
-
-读取指定原始数据，对数据进行增强处理，可以指定从原始数据中抽取的数量和生成的批次；
-
-## no_similate_train.py
-
-读取`data/lab`中的实验数据，训练模型，储存最好的模型，并且储存每轮的reward到`data/reward`中
-
-## plot_training_rewards.py
-
-读取`data/reward`中的reward数据，并画图
+> 输入：`data/reward/lab_50_rewards.csv`，`data/reward/lab_100_rewards.csv`，`data/reward/lab_200_rewards.csv`，`data/reward/lab_400_rewards.csv`
+>
+> 输出：`pic/lab/lab_50_Agent1(1-7) Reward_reward_plot.png`，`pic/lab/lab_50_total_reward_plot.png`，
+>
+> `pic/lab/lab_100_Agent1(1-7) Reward_reward_plot.png`，`pic/lab/lab_100_total_reward_plot.png`，
+>
+> `pic/lab/lab_200_Agent1(1-7) Reward_reward_plot.png`，`pic/lab/lab_200_total_reward_plot.png`，
+>
+> `pic/lab/lab_400_Agent1(1-7) Reward_reward_plot.png`，`pic/lab/lab_400_total_reward_plot.png`

@@ -1,16 +1,15 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-# Global variables for customization
-SMOOTHING_WEIGHT = 0.98  # Adjust this value to change smoothing level
-LINE_COLOR = 'firebrick'  # Adjust this value to change the line color
+SMOOTHING_WEIGHT = 0.98
+LINE_COLOR = 'firebrick'
 
 
 def read_data(csv_file):
     return pd.read_csv(csv_file)
 
 
-def smooth_data(data, weight=SMOOTHING_WEIGHT):  # Exponential moving average
+def smooth_data(data, weight=SMOOTHING_WEIGHT):
     last = data[0]
     smoothed = []
     for point in data:
@@ -29,7 +28,7 @@ def plot_total_reward(df, lab_name):
     plt.xlabel('Epoch')
     plt.ylabel('Total Reward')
     plt.legend()
-    plt.savefig(f'pic/{lab_name}_total_reward_plot.png')  # Save the figure
+    plt.savefig(f'pic/{lab_name}_total_reward_plot.png')
     plt.show()
 
 
@@ -44,12 +43,12 @@ def plot_agent_rewards(df, lab_name):
         plt.xlabel('Epoch')
         plt.ylabel('Reward')
         plt.legend()
-        plt.savefig(f'pic/{lab_name}_{agent}_reward_plot.png')  # Save the figure
+        plt.savefig(f'pic/{lab_name}_{agent}_reward_plot.png')
         plt.show()
 
 
 def main():
-    lab_name = "lab4"
+    lab_name = "lab_400"
     data_name = f'data/reward/{lab_name}_rewards.csv'
     data = read_data(data_name)
     plot_total_reward(data, lab_name)

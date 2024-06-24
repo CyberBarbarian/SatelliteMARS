@@ -20,7 +20,6 @@ def parse_time(time_str):
 
 
 def sort_missions(_missions):
-    # Group missions by batch_id
     batches = {}
     for task in _missions:
         batch_id = task['batch_id']
@@ -28,7 +27,6 @@ def sort_missions(_missions):
             batches[batch_id] = []
         batches[batch_id].append(task)
 
-    # Sort missions within each batch by arrival time
     _sorted_missions = []
     for batch_id in batches:
         batches[batch_id].sort(key=lambda x: int(x['arrival_time_seconds']))
@@ -38,18 +36,14 @@ def sort_missions(_missions):
 
 
 def sort_csv(input_file='data/MRL_data.csv', output_file='data/MRL_data_sorted.csv'):
-    # Load data from the integrated results CSV
     missions = read_csv(input_file)
 
-    # Sort the missions by arrival time within each batch
     sorted_missions = sort_missions(missions)
 
-    # Write the sorted missions back to a new CSV
     write_csv(output_file, sorted_missions)
 
     print(f"Mission have been sorted and written to {output_file}")
 
 
 if __name__ == "__main__":
-    # sort_csv(input_file='data/hot_MRL_data_4000_1.csv', output_file='data/hot_MRL_data_sorted_4000_1.csv')
     sort_csv()
