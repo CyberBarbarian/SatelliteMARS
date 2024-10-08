@@ -30,6 +30,10 @@
 
 读取指定原始数据，对数据进行增强处理，可以指定从原始数据中抽取的数量和生成的批次；
 
+## merge_csv.py
+
+读取指定数据集列表，拼接列表中的数据集；
+
 ## no_similate_train.py
 
 读取`data/lab`中的实验数据，训练模型，储存最好的模型，并且储存每轮的reward到`data/reward`中
@@ -37,3 +41,4 @@
 ## plot_training_rewards.py
 
 读取`data/reward`中的reward数据，并画图
+

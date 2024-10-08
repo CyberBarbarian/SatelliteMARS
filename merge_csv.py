@@ -22,10 +22,11 @@ def merge_csv_files(file_list, output_file):
 
 def main():
     # List of CSV files to merge
-    csv_files = ['data/lab/lab1_augment.csv',
-                 'data/lab/lab1_true.csv',
+    csv_files = ['data/lab/lab4_100.csv',
+                 'data/lab/lab4_200.csv',
+                 'data/lab/lab4_300.csv'
                  ]  # Update this list as necessary
-    output_file_name = 'data/lab/lab1.csv'  # Define your output file name
+    output_file_name = 'data/lab/lab4.csv'  # Define your output file name
 
     merge_csv_files(csv_files, output_file_name)
 
